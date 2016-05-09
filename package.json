@@ -1,0 +1,32 @@
+{
+  "name": "TeamWerx",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./bin/www"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kurtcarpenter/TeamWerx"
+  },
+  "author": "Georgia Institute of Technology - Team Undefined",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kurtcarpenter/TeamWerx/issues"
+  },
+  "homepage": "https://github.com/kurtcarpenter/TeamWerx",
+  "devDependencies": {
+    "morgan": "^1.7.0",
+    "standard": "^7.0.1",
+    "winston": "^2.2.0"
+  },
+  "dependencies": {
+    "body-parser": "^1.15.1",
+    "debug": "^2.2.0",
+    "express": "^4.13.4",
+    "mongoose": "^4.4.16",
+    "path": "^0.12.7"
+  }
+}
