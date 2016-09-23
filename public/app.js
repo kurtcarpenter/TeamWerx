@@ -6,7 +6,8 @@ var teamwerx = angular.module('teamwerx', [
   'ngMessages',
   'ngRoute',
   'ngResource',
-  'ngMaterial'
+  'ngMaterial',
+  'teamwerx.welcome'
 ])
 
 teamwerx.config(['$routeProvider', '$locationProvider', '$mdThemingProvider', function ($routeProvider, $locationProvider, $mdThemingProvider) {
