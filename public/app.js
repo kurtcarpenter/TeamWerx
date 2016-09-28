@@ -7,7 +7,9 @@ var teamwerx = angular.module('teamwerx', [
   'ngRoute',
   'ngResource',
   'ngMaterial',
-  'teamwerx.welcome'
+  'teamwerx.welcome',
+  'teamwerx.profHome',
+  'teamwerx.studentHome'
 ])
 
 teamwerx.config(['$routeProvider', '$locationProvider', '$mdThemingProvider', function ($routeProvider, $locationProvider, $mdThemingProvider) {
