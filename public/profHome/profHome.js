@@ -24,5 +24,4 @@ profHome.controller('profHomeCtrl', function ($scope, $mdDialog) {
       targetEvent: $event
     })
   }
-
 })
