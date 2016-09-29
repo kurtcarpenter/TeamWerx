@@ -1,0 +1,55 @@
+<md-dialog aria-label="Add Class">
+  <form>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Add Class</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="ctrl.closeDialog()">
+          <md-icon>close</md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content style="max-width:800px;max-height:810px; ">
+      <md-content>
+        <div layout="row" layout-margin layout-padding>
+          <md-input-container flex>
+            <label>Class Name</label>
+            <input ng-model="class.name">
+          </md-input-container>
+
+          <md-input-container flex>
+            <label>Class Section</label>
+            <input ng-model="class.section">
+          </md-input-container>
+        </div>
+
+        <div layout="row" layout-margin layout-padding>
+          <md-input-container flex>
+            <label>Class Size</label>
+            <input ng-model="class.number" type="number">
+          </md-input-container>
+          <md-datepicker ng-model="class.date" md-placeholder="Close Date" flex></md-datepicker>
+        </div>
+
+        <div layout="row" layout-margin layout-padding>
+          <md-checkbox ng-model="group.bestMatch" aria-label="Check" flex>
+            Match students by profile
+          </md-checkbox>
+          <md-checkbox ng-model="group.randomMatch" aria-label="Check" flex>
+            Match students randomly
+          </md-checkbox>
+          <md-checkbox ng-model="group.studentMatch" aria-label="Check" flex>
+            Let students pick groups
+          </md-checkbox>
+        </div>
+      </md-content>
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button ng-click="addClass(class, group)" style="margin-right:20px;" >
+        Add Class
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>
