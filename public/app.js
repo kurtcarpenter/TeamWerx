@@ -9,7 +9,8 @@ var teamwerx = angular.module('teamwerx', [
   'ngMaterial',
   'teamwerx.welcome',
   'teamwerx.profHome',
-  'teamwerx.studentHome'
+  'teamwerx.studentHome',
+  'teamwerx.addClassModalCtrl'
 ])
 
 teamwerx.config(['$routeProvider', '$locationProvider', '$mdThemingProvider', function ($routeProvider, $locationProvider, $mdThemingProvider) {
