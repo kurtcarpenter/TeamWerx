@@ -2,6 +2,7 @@ var express = require('express')
 var path = require('path')
 var router = express.Router()
 var Course = require('../models/course')
+var logger = require('winston')
 
 var getAll = function (req, res, next) {
   Course.getAll(function (err, ret) {
@@ -14,7 +15,7 @@ var getAll = function (req, res, next) {
 }
 
 var getClass = function (req, res, next) {
-  Course.get(req.body.id, function (err, ret) {
+  Course.get(req.params.id, function (err, ret) {
     if (err) {
       res.status(500).send()
     } else {
@@ -32,11 +33,12 @@ var addClass = function (req, res, next) {
     year: req.body.year,
     admins: [],
     roster: [],
-    minGroup: req.body.minGroupSize,
-    maxGroup: req.body.maxGroupSize,
+    minGroup: req.body.minGroup,
+    maxGroup: req.body.maxGroup,
     matchingStrategy: req.body.matchingStrategy
   }
   Course.add(params, function (err, ret) {
+    logger.info(err)
     if (err) {
       res.status(500).send()
     } else {
@@ -44,6 +46,19 @@ var addClass = function (req, res, next) {
     }
   })
 }
+
+// addClass({
+//   body: {
+//     department: 'CS',
+//     number: 2340,
+//     section: 'A',
+//     semester: 'SPRING',
+//     year: 2016,
+//     minGroup: 2,
+//     maxGroup: 3,
+//     matchingStrategy: 'AUTO'
+//   }
+// })
 
 router.route('/all')
   .get(getAll)

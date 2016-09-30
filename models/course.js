@@ -29,6 +29,7 @@ exports.add = function (params, cb) {
   /*if (!params.admins || params.admins.length <= 0) {
     return cb('Invalid admins list: must have at least 1')
   }*/
+  logger.info(params)
   if (!params.minGroup || !params.maxGroup || params.minGroup < 0 || params.maxGroup < params.minGroup) {
     return cb('Invalid group size limits')
   }
@@ -38,6 +39,8 @@ exports.add = function (params, cb) {
   if (MATCH_STRATEGIES.indexOf(params.matchingStrategy) < 0) {
     return cb('Invalid matching strategy')
   }
+  params.roster = ['sadsa']
+  params.admins = ['sadsa']
   Course.create(params, function (err, ret) {
     if (err) {
       logger.warn('Could not create class', {params: params, err: err})
