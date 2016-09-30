@@ -8,6 +8,7 @@ var bodyParser = require('body-parser')
 var mongoose = require('mongoose')
 var logger = require('winston')
 var publicRoutes = require('./routes/public')
+var classRoutes = require('./routes/class')
 
 var app = express()
 app.use(morgan('common'))
@@ -15,6 +16,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static(path.join(__dirname, 'public')))
 app.use('/', publicRoutes)
+app.use('/api/class/', classRoutes)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
