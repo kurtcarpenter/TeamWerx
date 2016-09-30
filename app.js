@@ -10,6 +10,21 @@ var logger = require('winston')
 var publicRoutes = require('./routes/public')
 var classRoutes = require('./routes/class')
 
+function initDatabase (mongoUri) {
+  mongoose.connect(mongoUri, function (err) {
+    if (err) {
+      logger.error('Could not connect to the database.', {err: err})
+    } else {
+      logger.info('Successfully connected to the database.')
+    }
+  })
+}
+var mongoUri
+mongoUri = 'mongodb://' + 'dev' + ':' +
+  'devPassword' + '@' + 'ds025772.mlab.com:25772' + '/' +
+  'teamwerx'
+initDatabase(mongoUri)
+
 var app = express()
 app.use(morgan('common'))
 app.use(bodyParser.json())

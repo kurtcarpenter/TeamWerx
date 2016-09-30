@@ -26,9 +26,9 @@ var MATCH_STRATEGIES = ['RANDOM', 'AUTO', 'CHOOSE']
 
 // cb(err, ret)
 exports.add = function (params, cb) {
-  if (!params.admins || params.admins.length <= 0) {
+  /*if (!params.admins || params.admins.length <= 0) {
     return cb('Invalid admins list: must have at least 1')
-  }
+  }*/
   if (!params.minGroup || !params.maxGroup || params.minGroup < 0 || params.maxGroup < params.minGroup) {
     return cb('Invalid group size limits')
   }
