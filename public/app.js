@@ -8,6 +8,7 @@ var teamwerx = angular.module('teamwerx', [
   'ngResource',
   'ngMaterial',
   'teamwerx.welcome',
+  'teamwerx.profDetail',
   'teamwerx.profHome',
   'teamwerx.studentHome',
   'teamwerx.addClassModalCtrl'
