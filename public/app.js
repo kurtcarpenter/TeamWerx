@@ -7,7 +7,7 @@ var teamwerx = angular.module('teamwerx', [
   'ngRoute',
   'ngResource',
   'ngMaterial',
-  'teamwerx.welcome',
+  'teamwerx.login',
   'teamwerx.profDetail',
   'teamwerx.profHome',
   'teamwerx.studentHome',

@@ -3,7 +3,7 @@ var path = require('path')
 var config = require('./config')
 // var favicon = require('serve-favicon')
 var morgan = require('morgan')
-// var cookieParser = require('cookie-parser')
+var cookieParser = require('cookie-parser')
 var bodyParser = require('body-parser')
 var mongoose = require('mongoose')
 var logger = require('winston')
@@ -28,10 +28,14 @@ initDatabase(mongoUri)
 var app = express()
 app.use(morgan('common'))
 app.use(bodyParser.json())
+app.use(cookieParser())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static(path.join(__dirname, 'public')))
 app.use('/', publicRoutes)
 app.use('/api/class/', classRoutes)
+
+// Sets up login route for professors and students.
+require('./routes/auth')(app)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
