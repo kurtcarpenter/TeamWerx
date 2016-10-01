@@ -18,3 +18,9 @@ teamwerx.config(['$routeProvider', '$locationProvider', '$mdThemingProvider', fu
   // Just for Kurt
   $locationProvider.hashPrefix('!')
 }])
+
+teamwerx.run(['$rootScope', '$http', '$window', function ($rootScope, $http, $window) {
+  $rootScope.logout = function () {
+    $window.location.href = '/logout'
+  }
+}])

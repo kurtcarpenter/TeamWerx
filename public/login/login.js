@@ -8,15 +8,25 @@ welcome.config(['$routeProvider', function ($routeProvider) {
   })
 }])
 
-welcome.controller('loginCtrl', function ($scope, $http, $window) {
+welcome.controller('loginCtrl', function ($rootScope, $scope, $http, $window) {
   var ctrl = this
+
+  function getCurrentUser (cb) {
+    $http.post('/currentuser').then(function success (data) {
+      $rootScope.user = data
+      cb()
+    }, function error (e) {
+      ctrl.msg = 'Invalid username or password'
+      console.warn(e)
+    })
+  }
 
   function login (username, password, cb) {
     $http.post('/login', {
       username: username,
       password: password
     }).then(function success () {
-      cb()
+      getCurrentUser(cb)
     }, function error (e) {
       console.warn(e)
     })

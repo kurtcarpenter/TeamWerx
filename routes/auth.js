@@ -3,6 +3,7 @@ var LocalStrategy = require('passport-local').Strategy
 
 var Professor = require('../models/professor')
 var Student = require('../models/student')
+var logger = require('winston')
 
 module.exports = function (app) {
   app.use(passport.initialize())
@@ -15,11 +16,11 @@ module.exports = function (app) {
 
   passport.deserializeUser(function (userMeta, done) {
     if (userMeta.isStudent) {
-      Student.get(userMeta.id, function (err, student) {
+      Student.getById(userMeta.id, function (err, student) {
         done(err, student)
       })
     } else {
-      Professor.get(userMeta.id, function (err, professor) {
+      Professor.getById(userMeta.id, function (err, professor) {
         done(err, professor)
       })
     }
@@ -28,28 +29,44 @@ module.exports = function (app) {
   passport.use(new LocalStrategy(
     // For now, username should be an email address and password should be "professor" or "student".
     function (username, password, done) {
+      username = username.toLowerCase()
       var Model = password === 'professor' ? Professor : Student
-      Model.getByEmail(username, function (err, professor) {
+      Model.getByEmail(username, function (err, account) {
         if (err) {
           return done(err)
-        } else if (!professor) {
-          Model.register(professor, function (err, professor) {
+        } else if (!account) {
+          Model.register(username, function (err, account) {
             if (err) {
               return done(err)
             } else {
-              return done(null, professor)
+              return done(null, account)
             }
           })
         } else {
-          return done(null, professor)
+          return done(null, account)
         }
       })
     }
   ))
 
-  app.post('/login',
-  passport.authenticate('local', { successRedirect: '/',
-                                   failureRedirect: '/login',
-                                   failureFlash: true })
-);
+  app.post('/currentuser', function (req, res) {
+    if (req.user) {
+      res.json({
+        email: req.user.email,
+        isStudent: req.user.isStudent
+      })
+    } else {
+      res.status(401).json({})
+    }
+  })
+
+  app.get('/logout', function (req, res) {
+    req.logout()
+    res.redirect('/')
+  })
+
+  app.post('/login', passport.authenticate('local', {
+    successRedirect: '/#!/',
+    failureRedirect: '/#!/'
+  }))
 }
