@@ -15,7 +15,7 @@ profHome.controller('profHomeCtrl', function ($scope) {
   $scope.showAddClass = function ($event) {
     $mdDialog.show({
       clickOutsideToClose: true,
-      templateUrl: 'addClassModal.html',
+      templateUrl: 'profHome/addClassModal.html',
       controller: 'addClassModalCtrl',
       controllerAs: 'ctrl',
       targetEvent: $event
