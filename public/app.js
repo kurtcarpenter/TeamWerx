@@ -7,7 +7,7 @@ var teamwerx = angular.module('teamwerx', [
   'ngRoute',
   'ngResource',
   'ngMaterial',
-  'teamwerx.welcome',
+  'teamwerx.login',
   'teamwerx.profDetail',
   'teamwerx.profHome',
   'teamwerx.studentHome',
@@ -17,4 +17,10 @@ var teamwerx = angular.module('teamwerx', [
 teamwerx.config(['$routeProvider', '$locationProvider', '$mdThemingProvider', function ($routeProvider, $locationProvider, $mdThemingProvider) {
   // Just for Kurt
   $locationProvider.hashPrefix('!')
+}])
+
+teamwerx.run(['$rootScope', '$http', '$window', function ($rootScope, $http, $window) {
+  $rootScope.logout = function () {
+    $window.location.href = '/logout'
+  }
 }])
