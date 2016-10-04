@@ -34,27 +34,76 @@
   </div>
 </md-toolbar>
 
-<div layout="column" layout-padding layout-margin>
+<div class='md-padding' layout="row" layout-wrap>
 
-  <md-content>
-    <md-list>
-      <md-list-item class="md-3-line" ng-repeat="class in classes">
-        <div class="md-list-item-text">
-          <h3>{{class.department}}{{class.number}} {{class.section}}</h3>
-          <!-- time of class; not in model yet -->
-          <h3>X/{{class.roster.length}}</h3 > <!-- not in model yet -->
-          <span>students in groups </span>
-        </div>
-        <md-divider ng-if="!$last"></md-divider>
-      </md-list-item>
-    </md-list>
+<md-sidenav
+        class="md-sidenav-left"
+        md-component-id="left"
+        md-is-locked-open="$mdMedia('gt-md')"
+        md-whiteframe="4">
+
+      <md-toolbar class="md-theme-indigo">
+        <h1 class="md-toolbar-tools">Professor Burdell</h1>
+      </md-toolbar>
+      <md-content layout-padding >
+        <img ng-src="{{imagePath}}" class="md-card-image" alt="Washed Out">
+      </md-content>
+
+    </md-sidenav>
+
+
+  <md-content flex layout-padding>
+    <md-grid-list md-cols="3"
+        md-row-height="3:2"
+        md-gutter="1px">
+      <md-grid-tile layout="row" layout-align="center center" flex="100"
+        ng-repeat="class in classes"
+        md-colspan="1"
+        md-rowspan="1"
+        md-theme="default">
+        <md-card flex="100" md-theme="default" md-theme-watch>
+          <md-card-title  md-colors="::{backgroundColor: 'default-background-300'}" >
+            <md-card-title-text >
+              <span class="md-headline">{{class.department}}{{class.number}} {{class.section}}</span>
+              <span>11:05 - 12:55</span>
+            </md-card-title-text>
+          </md-card-title>
+          <md-card-content layout="column">
+            <br>
+            <span><strong> 
+              1 / {{class.roster.length}}
+            </strong></span>
+            <span> 
+              students in groups
+            </span>
+            <br>
+          </md-card-content>
+        </md-card>
+      </md-grid-tile>
+
+      <md-grid-tile md-colspan="1" md-rowspan="1">
+        <md-card flex="100" md-theme="default" layout="column" layout-align="center" md-colors="::{backgroundColor: 'default-background-300'}" md-theme-watch ng-click="showAddClass($event)">
+          <md-card-title md-colors="::{backgroundColor: 'default-background-300'}">
+            <md-card-title-text >
+              <span class="md-headline">+</span>
+              <span class="md-headline">Add Class</span>
+            </md-card-title-text>
+          </md-card-title>
+        </md-card>
+      </md-grid-tile>
+      
+    </md-grid-list>
   </md-content>
+
+
+
+
 
 </div>
 
 
 
-<md-sidenav
+<!-- <md-sidenav
     class="md-sidenav-left"
     md-component-id="left"
     md-is-locked-open="$mdMedia('gt-md')"
@@ -62,9 +111,11 @@
 
   <md-toolbar class="md-theme-indigo">
     <h1 class="md-toolbar-tools">Professor Burdell</h1>
-    <!-- professor._id right? -->
   </md-toolbar>
   <md-content layout-padding>
     PIC HERE
   </md-content>
-</md-sidenav>
+</md-sidenav> -->
+
+
+    
