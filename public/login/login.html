@@ -4,7 +4,6 @@
     <span flex></span>
     <h2>Welcome to TeamWerx</h2>
     <span flex></span>
-    <h3>Sign Up for Free!</h3>
   </div>
 </md-toolbar>
 
@@ -17,19 +16,18 @@
         <input ng-model="ctrl.username" type="email">
       </md-input-container>
 
-      <md-input-container>
-        <label>Password</label>
-        <input ng-model="ctrl.password" type="password">
-      </md-input-container>
-
-      <md-radio-group ng-model="ctrl.attr">
-
-      <md-radio-button value="student" class="md-primary">Student</md-radio-button>
-      <md-radio-button value="professor" class="md-primary">Professor</md-radio-button>
-
+      <md-radio-group ng-model="ctrl.password">
+        <md-radio-button value="student" class="md-primary">Student</md-radio-button>
+        <md-radio-button value="professor" class="md-primary">Professor</md-radio-button>
       </md-radio-group>
 
-      <md-button md-no-ink class="md-primary" ng-click="ctrl.login(ctrl.attr)">Sign Up</md-button>
+      <md-button md-no-ink class="md-primary" ng-click="ctrl.login(ctrl.username, ctrl.password)">Login</md-button>
     </div>
   </md-content>
 </div>
+  <!-- <label>Username
+    <input ng-model="ctrl.username">
+  </label>
+  <btn ng-click="ctrl.loginAsStudent(ctrl.username)">Login as Student</btn>
+  <btn ng-click="ctrl.loginAsProfessor(ctrl.username)">Login as Professor</btn>
+</div> -->

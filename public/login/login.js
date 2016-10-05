@@ -21,26 +21,32 @@ welcome.controller('loginCtrl', function ($rootScope, $scope, $http, $window) {
     })
   }
 
-  function login (username, password, cb) {
+  ctrl.login = function (username, password) {
     $http.post('/login', {
       username: username,
       password: password
     }).then(function success () {
-      getCurrentUser(cb)
+      getCurrentUser(function () {
+        if (password === 'student') {
+          $window.location.href = '/#!/student/home'
+        } else {
+          $window.location.href = '/#!/prof/home'
+        }
+      })
     }, function error (e) {
       console.warn(e)
     })
   }
 
-  ctrl.loginAsProfessor = function (email) {
-    login(email, 'professor', function () {
-      $window.location.href = '/#!/prof/home'
-    })
-  }
-
-  ctrl.loginAsStudent = function (email) {
-    login(email, 'student', function () {
-      $window.location.href = '/#!/student/home'
-    })
-  }
+  // ctrl.loginAsProfessor = function (email) {
+  //   login(email, 'professor', function () {
+  //
+  //   })
+  // }
+  //
+  // ctrl.loginAsStudent = function (email) {
+  //   login(email, 'student', function () {
+  //
+  //   })
+  // }
 })
