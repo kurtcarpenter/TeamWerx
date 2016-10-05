@@ -13,64 +13,47 @@
       <md-content>
         <div layout="row" layout-margin layout-padding>
           <md-input-container flex>
-            <label>Department</label>
-            <input ng-model="class.department">
-          </md-input-container>
-
-          <md-input-container flex>
-            <label>Class Section</label>
-            <input ng-model="class.section">
+            <label>Name</label>
+            <input ng-model="ctrl.class.name" placeholder="CS 2340 A">
           </md-input-container>
 
           <md-input-container flex>
             <label>Semester</label>
-            <md-select name="type" ng-model="class.semester">
-              <md-option value="fall">Fall</md-option>
-              <md-option value="spring">Spring</md-option>
-              <md-option value="summer">Summer</md-option>
+            <md-select name="type" ng-model="ctrl.class.semester">
+              <md-option value="FALL">Fall</md-option>
+              <md-option value="SPRING">Spring</md-option>
+              <md-option value="SUMMER">Summer</md-option>
             </md-select>
           </md-input-container>
 
           <md-input-container flex>
             <label>Year</label>
-            <input ng-model="class.year" type="number">
+            <input ng-model="ctrl.class.year" type="number">
           </md-input-container>
         </div>
 
         <div layout="row" layout-margin layout-padding>
           <md-input-container flex>
             <label>Min Group Size</label>
-            <input ng-model="class.minSize" type="number">
+            <input ng-model="ctrl.class.minGroup" type="number">
           </md-input-container>
           <md-input-container flex>
             <label>Max Group Size</label>
-            <input ng-model="class.maxSize" type="number">
+            <input ng-model="ctrl.class.maxGroup" type="number">
           </md-input-container flex>
           <div flex>
             <span>Upload Roster:</span>
           </div>
           <md-input-container class="md-icon-float md-block">
-            <input ng-model="class.roster" type="file">
+            <input ng-model="ctrl.class.roster" type="file">
           </md-input-container>
-        </div>
-
-        <div layout="row" layout-margin layout-padding>
-          <md-checkbox ng-model="group.bestMatch" aria-label="Check" flex>
-            Match students by profile
-          </md-checkbox>
-          <md-checkbox ng-model="group.randomMatch" aria-label="Check" flex>
-            Match students randomly
-          </md-checkbox>
-          <md-checkbox ng-model="group.studentMatch" aria-label="Check" flex>
-            Let students pick groups
-          </md-checkbox>
         </div>
       </md-content>
     </md-dialog-content>
 
     <md-dialog-actions layout="row">
       <span flex></span>
-      <md-button ng-click="addClass(class, group)" style="margin-right:20px;" >
+      <md-button ng-click="ctrl.addClass(class, group)" style="margin-right:20px;" >
         Add Class
       </md-button>
     </md-dialog-actions>

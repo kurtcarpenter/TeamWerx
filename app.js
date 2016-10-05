@@ -6,6 +6,7 @@ var bodyParser = require('body-parser')
 var mongoose = require('mongoose')
 var logger = require('winston')
 var session = require('express-session')
+var MongoStore = require('connect-mongo')(session)
 
 var config = require('./config')
 var publicRoutes = require('./routes/public')
@@ -27,18 +28,21 @@ var app = express()
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(morgan('common')) // Note that static resources won't be logged.
 app.use(bodyParser.json())
-app.use(cookieParser())
+app.use(cookieParser(config.SESSION_SECRET))
 app.use(session({
   secret: config.SESSION_SECRET,
-  resave: true,
-  saveUninitialized: false
+  resave: false,
+  saveUninitialized: true,
+  store: new MongoStore({ mongooseConnection: mongoose.connections[0] })
 }))
 app.use(bodyParser.urlencoded({extended: false}))
-app.use('/', publicRoutes)
-app.use('/api/class/', classRoutes)
 
 // Sets up login route for professors and students.
 require('./routes/auth')(app)
+
+app.use('/', publicRoutes)
+
+app.use('/api/class/', classRoutes)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

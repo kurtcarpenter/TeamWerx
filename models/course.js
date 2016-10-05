@@ -2,45 +2,35 @@ var logger = require('winston')
 var mongoose = require('mongoose')
 var courseSchema = {
   // CS 4400 J
-  department: {type: String, required: true},
-  number: {type: Number, required: true},
-  section: {type: String, required: true},
+  name: {type: String, required: true},
   // SPRING, FALL, SUMMER
   semester: {type: String, required: true},
   year: {type: Number, required: true},
-  // creator, TA uid
-  admins: {type: Array, required: true},
+  // List of ids of the `Professor`s who administer this course.
+  professors: {type: [mongoose.Schema.ObjectId], required: true},
   // student uid
-  roster: {type: Array, required: true},
+  roster: {type: Array, required: false},
   // student groups may range from... 3-5 people
   minGroup: {type: Number, required: true},
-  maxGroup: {type: Number, required: true},
-  // how are we grouping? Random, auto-assign, free?
-  matchingStrategy: {type: String, required: true}
+  maxGroup: {type: Number, required: true}
 }
 
 var Course = mongoose.model('course', courseSchema)
 
 var SEMESTERS = ['SPRING', 'FALL', 'SUMMER']
-var MATCH_STRATEGIES = ['RANDOM', 'AUTO', 'CHOOSE']
 
 // cb(err, ret)
 exports.add = function (params, cb) {
-  /*if (!params.admins || params.admins.length <= 0) {
-    return cb('Invalid admins list: must have at least 1')
-  }*/
   logger.info(params)
+  if (!params.professors || params.professors.length === 0) {
+    return cb('Invalid professors list: must have at least 1')
+  }
   if (!params.minGroup || !params.maxGroup || params.minGroup < 0 || params.maxGroup < params.minGroup) {
     return cb('Invalid group size limits')
   }
   if (SEMESTERS.indexOf(params.semester) < 0) {
     return cb('Invalid semester')
   }
-  if (MATCH_STRATEGIES.indexOf(params.matchingStrategy) < 0) {
-    return cb('Invalid matching strategy')
-  }
-  params.roster = ['sadsa']
-  params.admins = ['sadsa']
   Course.create(params, function (err, ret) {
     if (err) {
       logger.warn('Could not create class', {params: params, err: err})
@@ -52,8 +42,9 @@ exports.add = function (params, cb) {
 }
 
 // cb(err, ret)
-exports.getAll = function (cb) {
-  Course.find({}, function (err, ret) {
+exports.getAll = function (_id, cb) {
+  _id = new mongoose.Types.ObjectId(_id)
+  Course.find({professors: {$in: [_id]}}, function (err, ret) {
     if (err) {
       logger.warn('Could not get all classes', {err: err})
       return cb({err: err})

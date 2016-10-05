@@ -23,4 +23,15 @@ teamwerx.run(['$rootScope', '$http', '$window', function ($rootScope, $http, $wi
   $rootScope.logout = function () {
     $window.location.href = '/logout'
   }
+
+  function getCurrentUser () {
+    $http.post('/currentuser').then(function success (res) {
+      $rootScope.user = res.data
+    }, function error (e) {
+      $window.location.href = '/#!/'
+      console.warn(e)
+    })
+  }
+
+  getCurrentUser()
 }])
