@@ -13,22 +13,45 @@
       <md-content>
         <div layout="row" layout-margin layout-padding>
           <md-input-container flex>
-            <label>Class Name</label>
-            <input ng-model="class.name">
+            <label>Department</label>
+            <input ng-model="class.department">
           </md-input-container>
 
           <md-input-container flex>
             <label>Class Section</label>
             <input ng-model="class.section">
           </md-input-container>
+
+          <md-input-container flex>
+            <label>Semester</label>
+            <md-select name="type" ng-model="class.semester">
+              <md-option value="fall">Fall</md-option>
+              <md-option value="spring">Spring</md-option>
+              <md-option value="summer">Summer</md-option>
+            </md-select>
+          </md-input-container>
+
+          <md-input-container flex>
+            <label>Year</label>
+            <input ng-model="class.year" type="number">
+          </md-input-container>
         </div>
 
         <div layout="row" layout-margin layout-padding>
           <md-input-container flex>
-            <label>Class Size</label>
-            <input ng-model="class.number" type="number">
+            <label>Min Group Size</label>
+            <input ng-model="class.minSize" type="number">
           </md-input-container>
-          <md-datepicker ng-model="class.date" md-placeholder="Close Date" flex></md-datepicker>
+          <md-input-container flex>
+            <label>Max Group Size</label>
+            <input ng-model="class.maxSize" type="number">
+          </md-input-container flex>
+          <div flex>
+            <span>Upload Roster:</span>
+          </div>
+          <md-input-container class="md-icon-float md-block">
+            <input ng-model="class.roster" type="file">
+          </md-input-container>
         </div>
 
         <div layout="row" layout-margin layout-padding>
