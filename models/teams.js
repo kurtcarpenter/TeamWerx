@@ -3,23 +3,25 @@ var Schema = mongoose.Schema
 
 var TeamSchema = new Schema({
   classId: { type: String, required: true},
-  createdAt: { type: Date, expires: '12h', default: Date.now },
-  members: { type: Array, required: true}
+  createdAt: { type: Date, default: Date.now },
+  members: { type: Array, required: true},
+  professorId: { type: String, required: true}
 })
 var Team = mongoose.model('team', TeamSchema)
 
-exports.getById = function (id, cb) {
-  Team.findOne({_id: id}, cb)
+exports.getById = function (id, professorId, cb) {
+  Team.findOne({_id: id, professorId: professorId}, cb)
 }
 
-exports.getAllByClass = function (classId, cb) {
-  Team.find({classId: classId}, cb)
+exports.getAllByClass = function (classId, professorId, cb) {
+  Team.find({classId: classId, professorId: professorId}, cb)
 }
 
-exports.create = function (classId, members, cb) {
+exports.create = function (classId, members, professorId, cb) {
   var team = {
     classId: classId,
-    members: members || []
+    members: members || [],
+    professorId: professorId: professorId
   }
   Team.create(team, cb)
 }
@@ -29,10 +31,12 @@ exports.addMember = function (id, member, cb) {
     if (err) {
       logger.warn('Could not find team', {err: err, id: id})
     } else {
-      team.members.push(member)
-      team.save(function (err, team) {
-        return cb(err, team)
-      })
+      if (team.members.indexOf(member) != -1) {
+        team.members.push(member)
+        team.save(function (err, team) {
+          return cb(err, team)
+        })
+      }
     }
   })
 }

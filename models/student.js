@@ -29,10 +29,12 @@ exports.addClass = function (id, classId) {
     if (err) {
       logger.warn('Could not find student', {err: err, id: id})
     } else {
-      student.classes.push(classId)
-      student.save(function (err, student) {
-        return cb(err, student)
-      })
+      if (student.class.indexOf(classId) != -1) {
+        student.classes.push(classId)
+        student.save(function (err, student) {
+          return cb(err, student)
+        })
+      }
     }
   })
 }

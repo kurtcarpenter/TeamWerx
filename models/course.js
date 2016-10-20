@@ -71,10 +71,12 @@ exports.addTeam = function(id, team, cb) {
     if (err) {
       logger.warn('Could not find class', {err: err, id: id})
     } else {
-      course.teams.push(team)
-      course.save(function (err, course) {
-        return cb(err, course)
-      })
+      if (course.teams.indexOf(team) != -1) {
+        course.teams.push(team)
+        course.save(function (err, course) {
+          return cb(err, course)
+        })
+      }
     }
   })
 }
