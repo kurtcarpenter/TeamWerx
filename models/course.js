@@ -12,7 +12,8 @@ var courseSchema = {
   roster: {type: Array, required: false},
   // student groups may range from... 3-5 people
   minGroup: {type: Number, required: true},
-  maxGroup: {type: Number, required: true}
+  maxGroup: {type: Number, required: true},
+  teams: {type: Array, default: []} // contains team ids
 }
 
 var Course = mongoose.model('course', courseSchema)
@@ -61,6 +62,21 @@ exports.get = function (id, cb) {
       logger.warn('Could not find class', {err: err, id: id})
     } else {
       return cb(null, ret)
+    }
+  })
+}
+
+exports.addTeam = function(id, team, cb) {
+  Course.findOne({_id: id}, function (err, course) {
+    if (err) {
+      logger.warn('Could not find class', {err: err, id: id})
+    } else {
+      if (course.teams.indexOf(team) != -1) {
+        course.teams.push(team)
+        course.save(function (err, course) {
+          return cb(err, course)
+        })
+      }
     }
   })
 }
