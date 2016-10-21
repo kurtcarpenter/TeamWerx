@@ -21,7 +21,7 @@ exports.create = function (classId, members, professorId, cb) {
   var team = {
     classId: classId,
     members: members || [],
-    professorId: professorId: professorId
+    professorId: professorId
   }
   Team.create(team, cb)
 }
