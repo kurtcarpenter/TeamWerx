@@ -1,3 +1,40 @@
-<div>
-  studentHome!
+<md-toolbar class="md-hue-2">
+  <div class="md-toolbar-tools">
+    <a href="/#!/"><h2>TeamWerx</h2></a>
+    <span flex></span>
+    <h2>Create Profile</h2>
+    <span flex></span>
+    <h3>{{ user.email }}</h3>
+  </div>
+</md-toolbar>
+
+<div layout="row" ng-cloak class="md-inline-form">
+
+  <md-content layout-gt-sm="row" layout-padding>
+    <div>
+      <md-input-container>
+        <label>Name</label>
+        <input ng-model="ctrl.name" type="name">
+      </md-input-container>
+      &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+      <md-radio-group ng-model="ctrl.gender">
+        <md-radio-button value="male" class="md-primary">Male</md-radio-button>
+        <md-radio-button value="female" class="md-primary">Female</md-radio-button>
+      </md-radio-group>
+      &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+      <md-datepicker ng-model="ctrl.birthday" md-placeholder="Birthday"></md-datepicker>
+      <br>
+      <md-input-container>
+        <label>Email</label>
+        <input ng-model="ctrl.email" type="email">
+      </md-input-container>
+      &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+      <md-input-container>
+        <label>Password</label>
+        <input ng-model="ctrl.password" type="password">
+      </md-input-container>
+      <br>
+      <md-button md-no-ink class="md-primary" ng-click="ctrl.createProfile(ctrl.name, ctrl.gender, ctrl.birthday, ctrl.email, ctrl.password)">Create Profile</md-button>
+    </div>
+  </md-content>
 </div>
