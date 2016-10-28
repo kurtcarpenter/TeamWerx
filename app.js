@@ -12,6 +12,8 @@ var config = require('./config')
 var publicRoutes = require('./routes/public')
 var classRoutes = require('./routes/class')
 
+var matcher = require('./lib/matcher/matcher')
+
 function initDatabase () {
   var mongoUri = config.MONGO_URI
   mongoose.connect(mongoUri, function (err) {
