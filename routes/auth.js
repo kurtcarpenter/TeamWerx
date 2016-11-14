@@ -3,7 +3,6 @@ var LocalStrategy = require('passport-local').Strategy
 
 var Professor = require('../models/professor')
 var Student = require('../models/student')
-var logger = require('winston')
 
 module.exports = function (app) {
   app.use(passport.initialize())
