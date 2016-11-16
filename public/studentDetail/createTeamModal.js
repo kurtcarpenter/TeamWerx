@@ -1,4 +1,4 @@
-var createTeamModal = angular.module('teamwerx.createTeamModalCtrl', [])
+var createTeamModal = angular.module('teamwerx.createTeamModal', [])
 
 createTeamModal.controller('createTeamModalCtrl', ['$mdDialog', '$http', function ($mdDialog, $http) {
   var ctrl = this

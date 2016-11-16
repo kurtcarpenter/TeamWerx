@@ -22,7 +22,7 @@ studentDetail.controller('studentDetailCtrl', function ($http, $mdDialog) {
     // })
 
     // for test
-    ctrl.teams = [{'name': 'team1', 'roster':['a','b'], 'capacity': 4}, {'name': 'team2', 'roster':['a','b', 'c'], 'capacity': 4}, {'name':'team3', 'roster':['a'], 'capacity': 3}, {'name':'team4', 'roster':['a','b', 'a', 'b'], 'capacity': 4}]
+    ctrl.teams = [{'name': 'team1', 'members':['Barack Obama','Joe Biden'], 'capacity': 4}, {'name': 'team2', 'members':['Stooge 1', 'Stooge 2', 'Stooge 3'], 'capacity': 4}, {'name':'team3', 'members':['Lone Wolf'], 'capacity': 3}, {'name':'team4', 'members':['James "I Know That You Want Me" Harden', 'James "Cuz I Am The Best" Harden', 'James "I Wear My Shirt Open" Harden', 'James "So You See My Chest" Harden'], 'capacity': 4}]
   }
   
   ctrl.showCreateTeam = function ($event) {
@@ -38,6 +38,22 @@ studentDetail.controller('studentDetailCtrl', function ($http, $mdDialog) {
         // ctrl.classes.push(newClass)
       }
     })
+  }
+
+  ctrl.showJoinTeam = function ($event, team) {
+    // TODO don't hardcode team size of 4 - need to add to the team model
+    if (team.members.length >= 4) {
+      console.warn(team);
+      return console.warn('This team is already full!')
+    }
+    $mdDialog.show({
+      locals: { item: team },
+      clickOutsideToClose: true,
+      templateUrl: 'studentDetail/joinTeamReqModal.html',
+      controller: 'joinTeamReqModalCtrl',
+      controllerAs: 'ctrl',
+      targetEvent: $event
+    });
   }
 
   function init() {

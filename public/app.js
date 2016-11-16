@@ -11,9 +11,10 @@ var teamwerx = angular.module('teamwerx', [
   'teamwerx.profDetail',
   'teamwerx.profHome',
   'teamwerx.studentHome',
-  'teamwerx.addClassModalCtrl',
+  'teamwerx.addClassModal',
   'teamwerx.studentDetail',
-  'teamwerx.createTeamModalCtrl'
+  'teamwerx.createTeamModal',
+  'teamwerx.joinTeamReqModal'
 ])
 
 teamwerx.config(['$routeProvider', '$locationProvider', '$mdThemingProvider', function ($routeProvider, $locationProvider, $mdThemingProvider) {
@@ -37,3 +38,22 @@ teamwerx.run(['$rootScope', '$http', '$window', function ($rootScope, $http, $wi
 
   getCurrentUser()
 }])
+
+// angular service to pass the team selected from the studentDetail page into the joinTeamReqModal
+teamwerx.service('joinTeamService', function() {
+  var teamToJoin = {};
+
+  var getTeam = function() {
+    return teamToJoin;
+  };
+
+  var setTeam = function(currTeam) {
+    teamToJoin = currTeam;
+  };
+
+  return {
+    getTeam: getTeam,
+    setTeam: setTeam
+  };
+
+});
