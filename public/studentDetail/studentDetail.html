@@ -11,16 +11,32 @@
 
 <div class='md-padding' layout="row" layout-wrap>
   <md-content flex layout-padding>
-    <md-grid-list md-cols="3"
-        md-row-height="1:1"
-        md-gutter="1px">
-      <md-grid-tile layout="row" layout-align="center center" flex="33"
+
+  <!-- <div layout="column"> -->
+    <md-card class="repeat-item md-padding" ng-animate="animate" layout="row" ng-repeat="req in ctrl.reqs" md-theme="default" style="height: 4rem; width: 70%; margin: 10 auto" layout-align="center center">
+      <md-card-title>
+        <md-card-title-text layout="row">
+          <span class="md-headline md-padding">{{req.student.name}}</span>
+          <span class="md-headline md-padding headlineButNot">{{req.student.email}}</span>
+        </md-card-title-text>
+      </md-card-title>
+      <md-card-content layout="row">
+        <md-button ng-click="ctrl.removeReq($index)" style="vertical-align: middle" layout-align="center center" class="md-raised md-primary">Accept</md-button>
+        <md-button ng-click="ctrl.removeReq($index)" layout-align="center center" class="md-raised">Reject</md-button>
+      </md-card-content>
+    </md-card>
+  <!-- </div> -->
+
+
+
+
+    <md-grid-list md-cols="3" md-row-height="2:1" md-gutter="1px">
+      <md-grid-tile layout="row" layout-align="center center" flex="100"
         ng-repeat="team in ctrl.teams"
         md-colspan="1"
         md-rowspan="1"
         md-theme="default">
         
-        <!-- TODO: Join modal <a href="/#!//"> -->
         <md-card layout="row" flex="100" md-theme="default" md-theme-watch>
           <md-card-title >
             <md-card-title-text >
@@ -29,19 +45,18 @@
             </md-card-title-text>
           </md-card-title>
           <md-card-content layout-align="center center" layout="column" md-colors="::{backgroundColor: 'default-background-300'}" ng-click="ctrl.showJoinTeam($event, team)">
-            <div ng-class="{ disabled: team.members.length >= team.capacity}">
-              <span flex="50">{{ team.members.length < team.capacity ? "&gt&gt" : ""}}</span>
-              <br>
-              <span>{{ team.members.length < team.capacity ? "Join" : "-Full-"}}</span>
+            <div ng-class="{ disabled: team.members.length >= team.capacity}" layout="column" layout-align="center">
+<!--               <span>{{ team.members.length < team.capacity ? "&gt&gt" : ""}}</span>-->
+              <span>{{ team.members.length < team.capacity ? "Join" : "Full"}}</span>
             </div>
           </md-card-content>
-        </md-card></a>
+        </md-card>
       </md-grid-tile>
 
       <md-grid-tile md-colspan="1" md-rowspan="1">
         <md-card flex="100" md-theme="default" layout="column" layout-align="center" md-colors="::{backgroundColor: 'default-background-300'}" md-theme-watch ng-click="ctrl.showCreateTeam($event)">
           <md-card-title md-colors="::{backgroundColor: 'default-background-300'}">
-            <md-card-title-text >
+            <md-card-title-text layout-align="center">
               <span class="md-headline">+</span>
               <span class="md-headline">Create New Team</span>
             </md-card-title-text>

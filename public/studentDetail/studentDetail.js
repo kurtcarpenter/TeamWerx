@@ -11,6 +11,10 @@ studentDetail.config(['$routeProvider', function ($routeProvider) {
 studentDetail.controller('studentDetailCtrl', function ($http, $mdDialog) {
   var ctrl = this
 
+  ctrl.removeReq = function(ind) {
+    ctrl.reqs.splice(ind, 1);
+  }
+
   function getTeams() {
     // TODO: teams api call
     // $http.get('/api/team').then(function success (res) {
@@ -23,6 +27,11 @@ studentDetail.controller('studentDetailCtrl', function ($http, $mdDialog) {
 
     // for test
     ctrl.teams = [{'name': 'team1', 'members':['Barack Obama','Joe Biden'], 'capacity': 4}, {'name': 'team2', 'members':['Stooge 1', 'Stooge 2', 'Stooge 3'], 'capacity': 4}, {'name':'team3', 'members':['Lone Wolf'], 'capacity': 3}, {'name':'team4', 'members':['James "I Know That You Want Me" Harden', 'James "Cuz I Am The Best" Harden', 'James "I Wear My Shirt Open" Harden', 'James "So You See My Chest" Harden'], 'capacity': 4}]
+  }
+
+  function getReqs() {
+    //TODO: get all reqs for current user and class
+    ctrl.reqs = [{'student': { 'name': 'John Doe', 'email' : 'john@doe.com'}}, {'student': {'name': 'Jane Doe', 'email': 'jane@doe.com'}}]
   }
   
   ctrl.showCreateTeam = function ($event) {
@@ -58,7 +67,7 @@ studentDetail.controller('studentDetailCtrl', function ($http, $mdDialog) {
 
   function init() {
     getTeams()
-
+    getReqs()
     
   }
 
