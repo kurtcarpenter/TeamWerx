@@ -12,6 +12,7 @@ For people who are comfortable working with Node.js projects, the following inst
 
   * Install MongoDB
   * `npm install`
+  * `npm start`
   * Go to `localhost:3000` in your browser.
 
 Currently, none of the TeamWerx dependencies require native code so `npm install` should not run into cross-platform issues.
