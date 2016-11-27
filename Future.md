@@ -40,3 +40,7 @@ After addressing the two major immediate pieces of work for this project, there 
     * Accept a student into another group
     * Remind students when a team formation deadline is approaching
     * Remind professors when the team formation deadline has passed and teams should be finalized
+* Auto hide classes from previous semesters (professors + students)
+* Allow professors to delete classes.
+* Allow students to remove themselves from classes.
+* Allow professors to mark teams as "Manual" to exclude them from the automatic assignment process (useful for teams that need to be over the maximum team size and teams which have requested to not be completely filled because it's an existing group of friends).
