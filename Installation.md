@@ -27,7 +27,6 @@ Then open a terminal window (on the OS of your choice) and navigate to the proje
 
 The very first time you run `npm install`, it may take up a to a minute as it gathers and downloads all dependencies. Like all Node.js applications, those dependencies will be downloaded into the `node_modules` folder. It is current best practice to exclude this folder in Git and we follow this recommendation.
 
-
 For the uninitiated, NPM provides [a good overview of the `package.json` file](https://docs.npmjs.com/getting-started/using-a-package.json) and managing dependencies through `npm`. Also note that the project currently doesn't have any dependencies that require native code to compile so it is exceedingly unlikely that `npm install` will raise any errors.
 
 ## Running TeamWerx for Development
@@ -50,7 +49,7 @@ To ensure that the `node_modules` on the server matches the one you're using loc
 
 Every time you add, update, or remove any dependencies. For the uninitiated, NPM provides [a good overview of how and why to shrinkwrap dependencies](https://docs.npmjs.com/cli/shrinkwrap).
 
-Additionally, it is traditional to set an environment variable in production (such as `NODE_ENV=prod`). With a simple modification to `config.js`, different API keys and connection strings can be used in production.
+Additionally, it is traditional to set an environment variable in production (such as `NODE_ENV=prod`). With a simple modification to `config.js`, different API keys and connection strings can be used in production. In particular, a production environment should use a different MongoDB instance. The connection information for this is managed in `config.js` under `MONGO_URI`.
 
 Beyond that, hosting the application will vary widely depending on what service it is running on top of. The general deployment steps are:
 
