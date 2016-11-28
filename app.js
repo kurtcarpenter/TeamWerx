@@ -11,6 +11,7 @@ var MongoStore = require('connect-mongo')(session)
 var config = require('./config')
 var publicRoutes = require('./routes/public')
 var classRoutes = require('./routes/class')
+var teamRoutes = require('./routes/team')
 
 var matcher = require('./lib/matcher/matcher')
 
@@ -43,8 +44,8 @@ app.use(bodyParser.urlencoded({extended: false}))
 require('./routes/auth')(app)
 
 app.use('/', publicRoutes)
-
 app.use('/api/class/', classRoutes)
+app.use('/api/team/', teamRoutes)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

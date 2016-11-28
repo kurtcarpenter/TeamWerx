@@ -79,7 +79,7 @@ exports.getAll = function (_id, cb) {
 
 // cb(err, ret)
 exports.get = function (id, cb) {
-  Course.findOne({_id: id}, function (err, ret) {
+  Course.findOne({_id: id}).lean().exec(function (err, ret) {
     if (err) {
       logger.warn('Could not find class', {err: err, id: id})
     } else {

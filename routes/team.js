@@ -1,7 +1,7 @@
 var express = require('express')
 var router = express.Router()
 
-var Course = require('../models/teams')
+var Team = require('../models/teams')
 var Student = require('../models/student')
 var logger = require('winston')
 
@@ -65,12 +65,12 @@ var judgePendingMember = function (req, res, next) {
   })
 }
 
-router.route('/team')
+router.route('/')
   .get(getAllByClass)
   .post(create)
-router.route('/team/:id')
+router.route('/:id')
   .get(getById)
-router.route('/team/:id/:member')
+router.route('/:id/:member')
   .get(judgePendingMember)
   .put(addPendingMember)
   .post(addMember)
