@@ -3,7 +3,7 @@ var Schema = mongoose.Schema
 
 var StudentSchema = new Schema({
   email: {type: String, required: true}, // Student's @gatech.edu email address.
-  name: {type: String, required: true}, // Student's full name.
+  name: {type: String}, // Student's full name.
   createdAt: {type: Date, required: true, default: Date.now}, // Date the student was added.
   isStudent: {type: Boolean, required: true, default: true}, // True on all students (false on professors).
   studentId: {type: String}, // Used when exporting a class roster to CSV.

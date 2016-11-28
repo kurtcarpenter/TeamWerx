@@ -3,6 +3,7 @@ var LocalStrategy = require('passport-local').Strategy
 
 var Professor = require('../models/professor')
 var Student = require('../models/student')
+var logger = require('winston')
 
 module.exports = function (app) {
   app.use(passport.initialize())
@@ -32,16 +33,20 @@ module.exports = function (app) {
       var Model = password === 'professor' ? Professor : Student
       Model.getByEmail(username, function (err, account) {
         if (err) {
+          loger.warn("Could not get by email", {err: err})
           return done(err)
         } else if (!account) {
+          logger.info("Registering account")
           Model.register(username, function (err, account) {
             if (err) {
+              logger.warn("Failed to register", {err: err})
               return done(err)
             } else {
               return done(null, account)
             }
           })
         } else {
+          logger.warn("Could not get by email")
           return done(null, account)
         }
       })
