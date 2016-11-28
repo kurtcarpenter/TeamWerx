@@ -8,45 +8,55 @@
   </div>
 </md-toolbar>
 
-<div class='md-padding' layout="row" layout-wrap>
+<div class="md-padding" layout="row" layout-wrap style="height: inherit">
   <md-content flex layout-padding>
-    <md-grid-list md-cols="3"
+    <md-grid-list
+        md-cols-xs="1"
+        md-cols-sm="2"
+        md-cols-md="3"
+        md-cols-lg="4"
         md-row-height="3:2"
+        md-row-height-xs="5:2"
         md-gutter="1px">
-      <md-grid-tile layout="row" layout-align="center center" flex="100"
+      <md-grid-tile layout="row" layout-align="center center" flex="100" layout-padding
         ng-repeat="class in ctrl.classes"
         md-colspan="1"
         md-rowspan="1"
         md-theme="default">
-        <a href="/#!/prof/detail"><md-card flex="100" md-theme="default" md-theme-watch>
-          <md-card-title  md-colors="::{backgroundColor: 'default-background-300'}" >
-            <md-card-title-text >
-              <span class="md-headline">{{ class.name }}</span>
-            </md-card-title-text>
-          </md-card-title>
-          <md-card-content layout="column">
-            <br>
-            <span><strong>
-              0 / {{class.roster.length}}
-            </strong></span>
-            <span>
-              students in groups
-            </span>
-            <br>
-          </md-card-content>
-        </md-card></a>
+        <a href="/#!/prof/detail" flex="100" style="height: 100%; text-decoration: none">
+          <md-card flex="100" style="height: inherit" md-theme="default" md-theme-watch>
+            <md-card-title  md-colors="::{backgroundColor: 'default-background-300'}" >
+              <md-card-title-text >
+                <span class="md-headline">{{ class.name }}</span>
+                <span class="md-subhead">{{ class.semester + ' ' + class.year }}
+              </md-card-title-text>
+            </md-card-title>
+            <md-card-content layout="column" style="margin: 16px 0 0">
+              <br>
+              <br>
+              <span style="padding-bottom:12px">
+                <b>42 / 142</b> students
+                <b>{{ class.teams.length }}</b> groups
+              </span>
+              <br>
+            </md-card-content>
+          </md-card>
+        </a>
       </md-grid-tile>
 
-      <md-grid-tile md-colspan="1" md-rowspan="1">
-        <md-card flex="100" md-theme="default" layout="column" layout-align="center" md-colors="::{backgroundColor: 'default-background-300'}" md-theme-watch ng-click="ctrl.showAddClass($event)">
-          <md-card-title md-colors="::{backgroundColor: 'default-background-300'}">
-            <md-card-title-text >
-              <span class="md-headline">+</span>
-              <span class="md-headline">Add Class</span>
-            </md-card-title-text>
-          </md-card-title>
-        </md-card>
+      <md-grid-tile md-colspan="1" md-rowspan="1" layout-padding>
+        <a flex="100" style="height: 100%; text-decoration: none; cursor: pointer">
+          <md-card layout-margin flex="100" style="height: inherit" md-theme="default" layout="column" layout-align="center" md-colors="::{backgroundColor: 'default-background-300'}" md-theme-watch ng-click="ctrl.showAddClass($event)">
+            <md-card-title md-colors="::{backgroundColor: 'default-background-300'}">
+              <md-card-title-text layout="column" layout-align="center center">
+                <span class="md-headline" style="font-size:3rem">+</span>
+                <span class="md-headline">Add Class</span>
+              </md-card-title-text>
+            </md-card-title>
+          </md-card>
+        </a>
       </md-grid-tile>
     </md-grid-list>
+    <div style="height: 100px"></div>
   </md-content>
 </div>
