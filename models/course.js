@@ -14,7 +14,7 @@ var courseSchema = {
   // student groups may range from... 3-5 people
   minGroup: {type: Number, required: true},
   maxGroup: {type: Number, required: true},
-  teams: {type: Array, default: []} // contains team ids
+  teams: {type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'team' }], default: []} // contains team ids
 }
 
 var Course = mongoose.model('course', courseSchema)
@@ -79,7 +79,7 @@ exports.getAll = function (_id, cb) {
 
 // cb(err, ret)
 exports.get = function (id, cb) {
-  Course.findOne({_id: id}).lean().exec(function (err, ret) {
+  Course.findOne({_id: id}).populate('teams').lean().exec(function (err, ret) {
     if (err) {
       logger.warn('Could not find class', {err: err, id: id})
     } else {
@@ -93,11 +93,16 @@ exports.addTeam = function (id, team, cb) {
     if (err) {
       logger.warn('Could not find class', {err: err, id: id})
     } else {
-      if (course.teams.indexOf(team) !== -1) {
+      if (course.teams.indexOf(team) < 0) {
         course.teams.push(team)
         course.save(function (err, course) {
+          if (err) {
+            logger.info('err')
+          }
           return cb(err, course)
         })
+      } else {
+        logger.info("Duplicate team cannot be added")
       }
     }
   })

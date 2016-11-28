@@ -35,8 +35,8 @@
               <br>
               <br>
               <span style="padding-bottom:12px">
-                <b>42 / 142</b> students
-                <b>{{ class.teams.length }}</b> groups
+                <!-- <b>42 / 142</b> students -->
+                <b>{{ class.teams.length + " group" + (class.teams.length === 1 ? "" : "s") }}</b> 
               </span>
               <br>
             </md-card-content>
