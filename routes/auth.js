@@ -57,7 +57,8 @@ module.exports = function (app) {
     if (req.user) {
       res.json({
         email: req.user.email,
-        isStudent: req.user.isStudent
+        isStudent: req.user.isStudent,
+        profile: req.user.profile || {}
       })
     } else {
       res.status(401).json({})

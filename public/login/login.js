@@ -14,6 +14,7 @@ welcome.controller('loginCtrl', function ($rootScope, $scope, $http, $window) {
   function getCurrentUser (cb) {
     $http.post('/currentuser').then(function success (res) {
       $rootScope.user = res.data
+      console.log('USER: ' + JSON.stringify(res.data))
       cb()
     }, function error (e) {
       ctrl.msg = 'Invalid username or password'

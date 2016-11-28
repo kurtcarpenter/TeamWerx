@@ -1,11 +1,13 @@
 var mongoose = require('mongoose')
 var Schema = mongoose.Schema
+var logger = require('winston')
 
 var StudentSchema = new Schema({
   email: {type: String, required: true}, // Student's @gatech.edu email address.
   name: {type: String}, // Student's full name.
   createdAt: {type: Date, required: true, default: Date.now}, // Date the student was added.
   isStudent: {type: Boolean, required: true, default: true}, // True on all students (false on professors).
+  profile: {type: Object, default: {}}, // True if
   studentId: {type: String}, // Used when exporting a class roster to CSV.
   classes: {type: Array, default: []} // A list of IDs of all classes a student is enrolled in.
 })
@@ -26,6 +28,22 @@ exports.register = function (email, cb) {
     email: email
   }
   Student.create(student, cb)
+}
+
+exports.updateProfile = function (email, profile, cb) {
+  if (!email || !profile) {
+    return cb('Please provide all relevant fields.')
+  }
+
+  logger.info('updating profile', {profile: profile})
+  Student.update({email: email},
+    {
+      $set: {
+        email: email,
+        profile: profile
+      }
+    },
+    {}, cb)
 }
 
 /**
