@@ -12,8 +12,7 @@
 <div layout="row" ng-cloak class="md-inline-form">
 
   <md-content flex layout-padding>
-    <div>
-
+    <div ng-if="!user.profile || !user.profile.name">
       <div layout ="row">
         <md-input-container flex="30">
           <label>Preferred Name</label>

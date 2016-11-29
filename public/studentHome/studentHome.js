@@ -14,11 +14,11 @@ studentHome.controller('studentHomeCtrl', function ($scope, $mdToast, $http, $ro
     // }
     console.log('creating student profile: ' + JSON.stringify(s))
     $http({
-        url: './api/student',
+        url: '/api/student',
         method: "GET",
-        params: {email: $rootScope.user.email, profile: s}
+        params: {email: $scope.user.email, profile: s}
      }).then(function success (res) {
-       $rootScope.user = res.data
+       $scope.user = res.data
      }, function error (e) {
        console.warn('Something went wrong.')
        console.warn(e)
@@ -47,8 +47,8 @@ studentHome.controller('studentHomeCtrl', function ($scope, $mdToast, $http, $ro
   }
 
   function init () {
-    //loadStudent()
-    console.log('loading student: ' + $scope.user)
+    // loadStudent()
+    // console.log('loading student: ' + $scope.user)
   }
   init()
 })

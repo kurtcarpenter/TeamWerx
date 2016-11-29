@@ -23,7 +23,7 @@
         md-colspan="1"
         md-rowspan="1"
         md-theme="default">
-        <a href="/#!/prof/detail" flex="100" style="height: 100%; text-decoration: none">
+        <a ng-href="/#!/prof/detail/{{ class._id }}" flex="100" style="height: 100%; text-decoration: none">
           <md-card flex="100" style="height: inherit" md-theme="default" md-theme-watch>
             <md-card-title  md-colors="::{backgroundColor: 'default-background-300'}" >
               <md-card-title-text >
@@ -35,8 +35,8 @@
               <br>
               <br>
               <span style="padding-bottom:12px">
-                <b>42 / 142</b> students
-                <b>{{ class.teams.length }}</b> groups
+                <!-- <b>42 / 142</b> students -->
+                <b>{{ class.teams.length + " group" + (class.teams.length === 1 ? "" : "s") }}</b> 
               </span>
               <br>
             </md-card-content>

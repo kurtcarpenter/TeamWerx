@@ -9,7 +9,7 @@ var StudentSchema = new Schema({
   isStudent: {type: Boolean, required: true, default: true}, // True on all students (false on professors).
   profile: {type: Object, default: {}}, // True if
   studentId: {type: String}, // Used when exporting a class roster to CSV.
-  classes: {type: Array, default: []} // A list of IDs of all classes a student is enrolled in.
+  classes: {type: [Schema.Types.ObjectId], default: []} // A list of IDs of all classes a student is enrolled in.
 })
 var Student = mongoose.model('student', StudentSchema)
 
@@ -35,7 +35,6 @@ exports.updateProfile = function (email, profile, cb) {
     return cb('Please provide all relevant fields.')
   }
 
-  logger.info('updating profile', {profile: profile})
   Student.update({email: email},
     {
       $set: {
@@ -43,7 +42,24 @@ exports.updateProfile = function (email, profile, cb) {
         profile: profile
       }
     },
-    {}, cb)
+    {}, function(err, status) {
+      if (!err) {
+        logger.info('updated profile succesfully', {profile: profile})
+        return exports.getByEmail(email, cb)
+      }
+    })
+}
+
+exports.findByClass = function (id, cb) {
+  Student.find({classes: id}, function (err, ret) {
+    if (err) {
+      logger.info("Could not find by class id", id)
+      cb(err, null)
+    } else {
+      ret = ret.map(function (i) { return { name: i.name, email: i.email, _id: i._id} })
+      cb(null, ret)
+    }
+  })
 }
 
 /**
@@ -64,7 +80,7 @@ exports.addStudentOrAddClass = function (name, userId, email, classId, cb) {
         name: name
       },
       $addToSet: {
-        classes: [classId]
+        classes: classId
       }
     },
     {upsert: true}, cb)

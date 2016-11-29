@@ -5,7 +5,7 @@
       <md-icon>menu</md-icon>
     </md-button> -->
     <h2>
-      <span>CS 2340J</span>
+      <span>{{ctrl.class.name}}</span>
     </h2>
     <span flex></span>
     <!-- <md-button class="md-raised" ng-click="showAddClass($event)"  >
@@ -43,16 +43,17 @@
       </h4>
       <span flex></span>
       <md-button class="md-raised">Add Student</md-button>
-      <md-button class="md-raised">Match All Students</md-button>
     </div>
   </md-toolbar>
 
   <md-content>
     <md-list>
-      <md-list-item class="md-3-line" ng-repeat="team in teams">
+      <md-list-item class="md-3-line" ng-repeat="team in ctrl.class.teams">
         <div class="md-list-item-text">
-          <h3>{{team.name}}</h3>
-          <h3>{{team.members.toString()}}</h3  >
+          <h2>{{team.name}}</h2>
+          <span ng-repeat="member in team.members">
+            {{ member.name.concat((!$last) ? ',': '')}}
+          </span>
         </div>
         <md-button class="md-secondary">Edit</md-button>
         <md-divider ng-if="!$last"></md-divider>
@@ -62,17 +63,29 @@
 
   <md-toolbar md-scroll-shrink>
     <div class="md-toolbar-tools">
-      Unmatched Students
+      <h4>Unmatched Students</h4>
+      <span flex></span>
+      <md-button class="md-raised" ng-click="ctrl.assignUnmatched()">Match All Students</md-button>
     </div>
   </md-toolbar>
 
   <md-content>
     <md-list>
-      <md-list-item class="md-3-line" ng-repeat="p in unmatched">
+      <md-list-item class="md-1-line" ng-repeat="p in ctrl.unmatched">
         <div class="md-list-item-text">
           <h3>{{p.name}}</h3>
         </div>
-        <md-button class="md-secondary">Match</md-button>
+
+        <span flex></span>
+        <md-input-container class="md-block">
+          <label>Select Team</label>
+          <md-select ng-model="p.assignTo">
+            <md-option ng-repeat="team in ctrl.class.teams" value="{{team._id}}">
+              {{team.name}}
+            </md-option>
+          </md-select>
+        </md-input-container>
+        <md-button class="md-secondary" ng-click="ctrl.assignStudent(p)">Assign</md-button>
         <md-divider ng-if="!$last"></md-divider>
       </md-list-item>
     </md-list>

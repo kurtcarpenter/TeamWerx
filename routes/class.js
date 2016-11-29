@@ -4,6 +4,7 @@ var csv = require('csv')
 
 var Course = require('../models/course')
 var Student = require('../models/student')
+var Matcher = require('../lib/matcher/matcher')
 var logger = require('winston')
 
 var getAll = function (req, res, next) {
@@ -21,7 +22,10 @@ var getClass = function (req, res) {
     if (err) {
       res.status(500).send()
     } else {
-      res.send(ret)
+      Student.findByClass(req.params.id, function (err, roster) {
+        ret.roster = roster
+        res.send(ret)
+      })
     }
   })
 }
@@ -105,10 +109,31 @@ var addClass = function (req, res, next) {
   })
 }
 
+var assignUnmatched = function (req, res, next) {
+  Course.get(req.params.id, function (err, ret) {
+    if (err) {
+      res.status(500).send()
+    } else {
+      Student.findByClass(req.params.id, function (err, roster) {
+        ret.roster = roster
+        Matcher.formTeams(ret, 'RANDOM', req.body.preserveTeams, function (err, resp) {
+          if (err) {
+            res.send(500)
+          } else {
+            res.send(200)
+          }
+        })
+      })
+    }
+  })
+}
+
 router.route('/')
   .get(getAll)
   .post(addClass)
 router.route('/:id')
   .get(getClass)
+router.route('/:id/match')
+  .post(assignUnmatched)
 
 module.exports = router

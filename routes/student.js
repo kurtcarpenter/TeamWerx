@@ -5,12 +5,11 @@ var Student = require('../models/student')
 var logger = require('winston')
 
 var updateProfile = function (req, res, next) {
-  logger.info('HERE')
-  Student.updateProfile(req.params.email, req.params.profile, function (err, student) {
+  Student.updateProfile(req.query.email, req.query.profile, function (err, student) {
     if (err) {
+      logger.warn('error occurred while updating profile', {err: err})
       res.status(500).send()
     } else {
-      logger.info('HERE2')
       res.json({
         email: student.email,
         isStudent: student.isStudent,
@@ -20,7 +19,7 @@ var updateProfile = function (req, res, next) {
   })
 }
 
-router.route('/student')
+router.route('/')
   .get(updateProfile)
 
 module.exports = router
