@@ -1,0 +1,54 @@
+<md-dialog aria-label="Create Team">
+  <form>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Create Team</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="ctrl.closeDialog()">
+          <md-icon>close</md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content style="max-width:800px;max-height:810px; ">
+      <md-content>
+
+        <div layout="row" layout-margin layout-padding>
+          <md-input-container flex>
+            <label>Name</label>
+            <input ng-model="ctrl.team.name" placeholder="Team Rocket">
+          </md-input-container>
+
+          <md-input-container flex>
+            <label>Size</label>
+            <input ng-model="ctrl.team.capacity" type="number">
+          </md-input-container>
+
+        </div>
+
+        <div layout="row" layout-margin layout-padding>
+          <md-input-container flex>
+            <label>Members</label>
+            <md-contact-chips
+              ng-model="ctrl.team.members"
+              md-contacts="ctrl.querySearch($query)"
+              md-contact-name="name"
+              md-require-match="true"
+              md-highlight-flags="i"
+              filter-selected="ctrl.filterSelected"
+              placeholder="To">
+            </md-contact-chips>
+          </md-input-container>
+        </div>
+
+
+      </md-content>
+    </md-dialog-content>
+    <br>
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button ng-click="ctrl.createTeam(team, group)" style="margin-right:20px;" >
+        Create Team
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

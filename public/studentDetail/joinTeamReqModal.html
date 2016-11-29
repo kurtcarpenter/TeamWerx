@@ -1,0 +1,43 @@
+<md-dialog class="joinTeamDialog" min-width="40% !important" aria-label="Create Team">
+  <form>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Request to Join <i><b>{{ ctrl.currTeam.name }}</i></b></h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="ctrl.closeDialog()">
+          <md-icon>close</md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content style="max-width:800px;max-height:810px; ">
+      <md-content>
+
+        <div layout="column" layout-margin>
+          <md-subheader>Members</md-subheader>
+          <md-list class="memberList">
+            <md-list-item class="memberListItem" ng-repeat="student in ctrl.currTeam.members">
+              <div class="md-list-item-text">
+                <span>- {{ student }}</span>
+              </div>
+            </md-list-item>
+          </md-list>
+          <md-subheader>Description</md-subheader>
+          <span id="teamDescr">{{ ctrl.currTeam.description }}</span>
+          <md-input-container class="md-block">
+            <label>Add Your Own Message</label>
+            <textarea ng-model="message" rows="2"></textarea>
+          </md-input-container>
+        </div>
+
+
+      </md-content>
+    </md-dialog-content>
+    <br>
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button ng-click="ctrl.sendReq()" style="margin-right:20px;" >
+        Submit Request
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

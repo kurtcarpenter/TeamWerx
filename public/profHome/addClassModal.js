@@ -1,6 +1,6 @@
 /* global FileReader */
 
-var addClassModal = angular.module('teamwerx.addClassModalCtrl', [])
+var addClassModal = angular.module('teamwerx.addClassModal', [])
 
 addClassModal.controller('addClassModalCtrl', ['$mdDialog', '$http', function ($mdDialog, $http) {
   var ctrl = this
