@@ -5,118 +5,79 @@
     <h2>Create Profile</h2>
     <span flex></span>
     <h3>{{ user.email }}</h3>
+    <p>{{user}}</p>
   </div>
 </md-toolbar>
 
 <div layout="row" ng-cloak class="md-inline-form">
 
-  <md-content layout-gt-sm="row" layout-padding>
-    <div>
-      &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-      Please List Three Availabilities
+  <md-content flex layout-padding>
+    <div ng-if="!user.profile || !user.profile.name">
+      <div layout ="row">
+        <md-input-container flex="30">
+          <label>Preferred Name</label>
+          <input ng-model="p.name" type="name">
+        </md-input-container>
+        <div layout="column" layout-padding flex>
+          <!-- <h3>Please List Three Availabilities</h3> -->
+          <div layout="row" class="range layout-column flex-gt-md-30" flex>
+            <md-input-container class="md-input-has-placeholder" flex>
+              <label>Start Date/Time</label>
+              <input mdc-datetime-picker date="true" time="true" type="text" format="MM/DD/YYYY hh:mm a"
+              placeholder="Date" max-date="p.dateTimeEnd1" ng-model="p.dateTimeStart1">
+            </md-input-container>
+
+            <md-input-container class="md-input-has-placeholder" flex>
+              <label>End Date/Time</label>
+              <input mdc-datetime-picker date="true" time="true" type="text" format="MM/DD/YYYY hh:mm a"
+              placeholder="Date" min-date="p.dateTimeStart1" ng-model="p.dateTimeEnd1">
+            </md-input-container>
+          </div>
+
+          <div layout="row" class="range layout-column flex-gt-md-30" flex>
+            <md-input-container class="md-input-has-placeholder" flex>
+              <label>Start Date/Time</label>
+              <input mdc-datetime-picker date="true" time="true" type="text" format="MM/DD/YYYY hh:mm a"
+              placeholder="Date" max-date="p.dateTimeEnd2" ng-model="p.dateTimeStart2">
+            </md-input-container>
+
+            <md-input-container class="md-input-has-placeholder" flex>
+              <label>End Date/Time</label>
+              <input mdc-datetime-picker date="true" time="true" type="text" format="MM/DD/YYYY hh:mm a"
+              placeholder="Date" min-date="p.dateTimeStart2" ng-model="p.dateTimeEnd2">
+            </md-input-container>
+          </div>
+
+          <div layout="row" class="range layout-column flex-gt-md-30" flex>
+            <md-input-container class="md-input-has-placeholder" flex>
+              <label>Start Date/Time</label>
+              <input mdc-datetime-picker date="true" time="true" type="text" format="MM/DD/YYYY hh:mm a"
+              placeholder="Date" max-date="p.dateTimeEnd3" ng-model="p.dateTimeStart3">
+            </md-input-container>
+
+            <md-input-container class="md-input-has-placeholder" flex>
+              <label>End Date/Time</label>
+              <input mdc-datetime-picker date="true" time="true" type="text" format="MM/DD/YYYY hh:mm a"
+              placeholder="Date" min-date="p.dateTimeStart3" ng-model="p.dateTimeEnd3">
+            </md-input-container>
+          </div>
+        </div>
+
+        <div layout="column">
+          <md-input-container flex layout-padding>
+              <label>Describe Yourself</label>
+              <textarea ng-model="p.detail" md-maxlength="200" rows="5" md-select-on-focus></textarea>
+          </md-input-container>
+          <md-input-container flex layout-padding>
+              <label>Skills</label>
+              <textarea ng-model="p.skills" md-maxlength="100" rows="5" md-select-on-focus></textarea>
+          </md-input-container>
+        </div>
+      </div>
+
+
       <br>
-      <md-input-container>
-        <label>Preferred Name</label>
-        <input ng-model="ctrl.name" type="name">
-      </md-input-container>
-      &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-      <md-input-container>
-        <label>Date</label>
-          <md-select ng-model="ctrl.day1">
-            <md-option ng-repeat="day of the week" value="{{date.name}}">
-            {{date.name}}
-            </md-option>
-          </md-select>
-      </md-input-container>
-      &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-      <md-input-container>
-        <label>Starting Time</label>
-          <md-select ng-model="ctrl.startTime1">
-            <md-option ng-repeat="time" value="{{time.name}}">
-            {{time.name}}
-            </md-option>
-          </md-select>
-      </md-input-container>
-      &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-      <md-input-container>
-        <label>Ending Time</label>
-          <md-select ng-model="ctrl.endTime1">
-            <md-option ng-repeat="time" value="{{time.name}}">
-            {{time.name}}
-            </md-option>
-          </md-select>
-      </md-input-container>
-      <br>
-      <md-input-container>
-        <label>Current Year</label>
-          <md-select ng-model="ctrl.year">
-            <md-option ng-repeat="school year" value="{{year.name}}">
-            {{year.name}}
-            </md-option>
-          </md-select>
-      </md-input-container>
-      &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-      <md-input-container>
-        <label>Date</label>
-          <md-select ng-model="ctrl.day2">
-            <md-option ng-repeat="day of the week" value="{{date.name}}">
-            {{date.name}}
-            </md-option>
-          </md-select>
-      </md-input-container>
-      &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-      <md-input-container>
-        <label>Starting Time</label>
-          <md-select ng-model="ctrl.startTime2">
-            <md-option ng-repeat="time" value="{{time.name}}">
-            {{time.name}}
-            </md-option>
-          </md-select>
-      </md-input-container>
-      &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-      <md-input-container>
-        <label>Ending Time</label>
-          <md-select ng-model="ctrl.endTime2">
-            <md-option ng-repeat="time" value="{{time.name}}">
-            {{time.name}}
-            </md-option>
-          </md-select>
-      </md-input-container>
-      <br>
-      &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-      <md-input-container>
-        <label>Date</label>
-          <md-select ng-model="ctrl.day3">
-            <md-option ng-repeat="day of the week" value="{{date.name}}">
-            {{date.name}}
-            </md-option>
-          </md-select>
-      </md-input-container>
-      &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-      <md-input-container>
-        <label>Starting Time</label>
-          <md-select ng-model="ctrl.startTime3">
-            <md-option ng-repeat="time" value="{{time.name}}">
-            {{time.name}}
-            </md-option>
-          </md-select>
-      </md-input-container>
-      &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-      <md-input-container>
-        <label>Ending Time</label>
-          <md-select ng-model="ctrl.endTime3">
-            <md-option ng-repeat="time" value="{{time.name}}">
-            {{time.name}}
-            </md-option>
-          </md-select>
-      </md-input-container>
-      <br>
-      <md-input-container>
-          <label>Describe Yourself</label>
-          <textarea ng-model="ctrl.detail" md-maxlength="200" rows="5" md-select-on-focus></textarea>
-      </md-input-container>
-      <br>
-      <center><md-button md-no-ink class="md-primary" ng-click="">Cancel</md-button><md-button md-no-ink class="md-primary" ng-click="ctrl.createProfile(ctrl.name, ctrl.year, ctrl.detail, ctrl.day1, ctrl.day2, ctrl.day3, ctrl.startTime1, ctrl.startTime2, ctrl.startTime3, ctrl.endTime1, ctrl.endTime2, ctrl.endTime3, ctrl.skill1, ctrl.skill2, ctrl.skill3, ctrl.skill4, ctrl.skill5, ctrl.skill6, ctrl.skillOther)">Submit</md-button></center>
+      <center><md-button md-no-ink class="md-primary" ng-click="">Cancel</md-button><md-button md-no-ink class="md-primary" ng-click="createProfile(p)">Submit</md-button></center>
     </div>
   </md-content>
 </div>

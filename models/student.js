@@ -7,6 +7,7 @@ var StudentSchema = new Schema({
   name: {type: String}, // Student's full name.
   createdAt: {type: Date, required: true, default: Date.now}, // Date the student was added.
   isStudent: {type: Boolean, required: true, default: true}, // True on all students (false on professors).
+  profile: {type: Object, default: {}}, // True if
   studentId: {type: String}, // Used when exporting a class roster to CSV.
   classes: {type: [{ type: Schema.Types.ObjectId, ref: 'course'}], default: []} // A list of IDs of all classes a student is enrolled in.
 })
@@ -29,6 +30,26 @@ exports.register = function (email, cb) {
     email: email
   }
   Student.create(student, cb)
+}
+
+exports.updateProfile = function (email, profile, cb) {
+  if (!email || !profile) {
+    return cb('Please provide all relevant fields.')
+  }
+
+  Student.update({email: email},
+    {
+      $set: {
+        email: email,
+        profile: profile
+      }
+    },
+    {}, function(err, status) {
+      if (!err) {
+        logger.info('updated profile succesfully', {profile: profile})
+        return exports.getByEmail(email, cb)
+      }
+    })
 }
 
 exports.findByClass = function (id, cb) {

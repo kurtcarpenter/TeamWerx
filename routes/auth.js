@@ -57,7 +57,8 @@ module.exports = function (app) {
     if (req.user) {
       var data = {
         email: req.user.email,
-        isStudent: req.user.isStudent
+        isStudent: req.user.isStudent,
+        profile: req.user.profile || {}
       }
       if (req.user.isStudent) {
         data.classes = req.user.classes
