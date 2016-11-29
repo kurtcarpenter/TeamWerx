@@ -11,6 +11,7 @@ var teamwerx = angular.module('teamwerx', [
   'teamwerx.profDetail',
   'teamwerx.profHome',
   'teamwerx.studentHome',
+  'teamwerx.studentHome2',
   'teamwerx.addClassModalCtrl'
 ])
 
