@@ -1,54 +1,39 @@
-var studentHome = angular.module('teamwerx.studentHome', ['ngRoute', 'ngMaterialDatePicker'])
+var studentHome = angular.module('teamwerx.studentHome', ['ngRoute'])
 
 studentHome.config(['$routeProvider', function ($routeProvider) {
   $routeProvider.when('/student/home', {
     templateUrl: 'studentHome/studentHome.html',
-    controller: 'studentHomeCtrl'
+    controller: 'studentHomeCtrl',
+    controllerAs: 'ctrl'
   })
 }])
 
-studentHome.controller('studentHomeCtrl', function ($scope, $mdToast, $http, $rootScope) {
-  $scope.createProfile = function (s) {
-    // if (!s || !s.name || !s.detail || !s.skills || !s.startTime1 || !s.endTime1 || !s.startTime2 || !s.endTime2 || !s.startTime3 || !s.endTime3) {
-    //   return showToast('Please fill out all fields!')
-    // }
-    console.log('creating student profile: ' + JSON.stringify(s))
-    $http({
-        url: '/api/student',
-        method: "GET",
-        params: {email: $scope.user.email, profile: s}
-     }).then(function success (res) {
-       $scope.user = res.data
-     }, function error (e) {
-       console.warn('Something went wrong.')
-       console.warn(e)
-     })
-  }
+studentHome.controller('studentHomeCtrl', function ($http, $mdDialog, $scope) {
+  var ctrl = this
 
-  function showToast(text) {
-    $mdToast.show(
-      $mdToast.simple()
-        .textContent(text)
-        .position('bottom left')
-        .hideDelay(3000)
-    );
-  }
+  var isGrouped = setInterval(function () {
+    if ($scope.user && $scope.user.classes) {
+      clearTimeout(isGrouped)
+      applyGrouped()
+    }
+  }, 50)
 
-
-
-  function loadStudent () {
-    $http.get('/api/class').then(function success (res) {
-      ctrl.classes = res.data.classes
-    }, function error (e) {
-      console.warn('Something went wrong.')
-      ctrl.classes = []
-      console.warn(e)
-    })
+  function applyGrouped () {
+    var classes = $scope.user.classes
+    for (var i = 0; i < classes.length; i++) {
+      classes[i].isInTeam = false
+      for (var j = 0; j < classes[i].teams.length; j++) {
+        var members = classes[i].teams[j].members
+        for (var k = 0; k < members.length; k++) {
+          if (members[k].email === $scope.user.email) {
+            classes[i].isInTeam = true
+          }
+        }
+      }
+    }
   }
 
   function init () {
-    // loadStudent()
-    // console.log('loading student: ' + $scope.user)
   }
   init()
 })

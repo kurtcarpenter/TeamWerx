@@ -14,8 +14,7 @@ welcome.controller('loginCtrl', function ($rootScope, $scope, $http, $window) {
   function getCurrentUser (cb) {
     $http.post('/currentuser').then(function success (res) {
       $rootScope.user = res.data
-      console.log('USER: ' + JSON.stringify(res.data))
-      cb()
+      cb(res.data)
     }, function error (e) {
       ctrl.msg = 'Invalid username or password'
       console.warn(e)
@@ -27,9 +26,15 @@ welcome.controller('loginCtrl', function ($rootScope, $scope, $http, $window) {
       username: username,
       password: password
     }).then(function success () {
-      getCurrentUser(function () {
+      getCurrentUser(function (user) {
         if (password === 'student') {
-          $window.location.href = '/#!/student/home'
+          var str = JSON.stringify(user)
+          console.log('user: ' + str)
+          if (str.indexOf('"profile":{}') !== -1) {
+            $window.location.href = '/#!/student/profile'
+          } else {
+            $window.location.href = '/#!/student/home'
+          }
         } else {
           $window.location.href = '/#!/prof/home'
         }

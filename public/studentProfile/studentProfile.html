@@ -1,0 +1,82 @@
+<md-toolbar class="md-hue-2">
+  <div class="md-toolbar-tools">
+    <a href="/#!/"><h2>TeamWerx</h2></a>
+    <span flex></span>
+    <h2>Create Profile</h2>
+    <span flex></span>
+    <h3>{{ user.email }}</h3>
+  </div>
+</md-toolbar>
+
+<div layout="row" ng-cloak class="md-inline-form">
+
+  <md-content flex layout-padding>
+    <div>
+      <div layout ="row">
+        <md-input-container flex="30">
+          <label>Preferred Name</label>
+          <input ng-model="p.name" type="name">
+        </md-input-container>
+        <div layout="column" layout-padding flex>
+          <!-- <h3>Please List Three Availabilities</h3> -->
+          <div layout="row" class="range layout-column flex-gt-md-30" flex>
+            <md-input-container class="md-input-has-placeholder" flex>
+              <label>Start Date/Time</label>
+              <input mdc-datetime-picker date="true" time="true" type="text" format="MM/DD/YYYY hh:mm a"
+              placeholder="Date" max-date="p.dateTimeEnd1" ng-model="p.dateTimeStart1">
+            </md-input-container>
+
+            <md-input-container class="md-input-has-placeholder" flex>
+              <label>End Date/Time</label>
+              <input mdc-datetime-picker date="true" time="true" type="text" format="MM/DD/YYYY hh:mm a"
+              placeholder="Date" min-date="p.dateTimeStart1" ng-model="p.dateTimeEnd1">
+            </md-input-container>
+          </div>
+
+          <div layout="row" class="range layout-column flex-gt-md-30" flex>
+            <md-input-container class="md-input-has-placeholder" flex>
+              <label>Start Date/Time</label>
+              <input mdc-datetime-picker date="true" time="true" type="text" format="MM/DD/YYYY hh:mm a"
+              placeholder="Date" max-date="p.dateTimeEnd2" ng-model="p.dateTimeStart2">
+            </md-input-container>
+
+            <md-input-container class="md-input-has-placeholder" flex>
+              <label>End Date/Time</label>
+              <input mdc-datetime-picker date="true" time="true" type="text" format="MM/DD/YYYY hh:mm a"
+              placeholder="Date" min-date="p.dateTimeStart2" ng-model="p.dateTimeEnd2">
+            </md-input-container>
+          </div>
+
+          <div layout="row" class="range layout-column flex-gt-md-30" flex>
+            <md-input-container class="md-input-has-placeholder" flex>
+              <label>Start Date/Time</label>
+              <input mdc-datetime-picker date="true" time="true" type="text" format="MM/DD/YYYY hh:mm a"
+              placeholder="Date" max-date="p.dateTimeEnd3" ng-model="p.dateTimeStart3">
+            </md-input-container>
+
+            <md-input-container class="md-input-has-placeholder" flex>
+              <label>End Date/Time</label>
+              <input mdc-datetime-picker date="true" time="true" type="text" format="MM/DD/YYYY hh:mm a"
+              placeholder="Date" min-date="p.dateTimeStart3" ng-model="p.dateTimeEnd3">
+            </md-input-container>
+          </div>
+        </div>
+
+        <div layout="column">
+          <md-input-container flex layout-padding>
+              <label>Describe Yourself</label>
+              <textarea ng-model="p.detail" md-maxlength="200" rows="5" md-select-on-focus></textarea>
+          </md-input-container>
+          <md-input-container flex layout-padding>
+              <label>Skills</label>
+              <textarea ng-model="p.skills" md-maxlength="100" rows="5" md-select-on-focus></textarea>
+          </md-input-container>
+        </div>
+      </div>
+
+
+      <br>
+      <center><md-button md-no-ink class="md-primary" ng-click="">Cancel</md-button><md-button md-no-ink class="md-primary" ng-click="createProfile(p)">Submit</md-button></center>
+    </div>
+  </md-content>
+</div>

@@ -4,6 +4,7 @@ var logger = require('winston')
 
 var TeamSchema = new Schema({
   classId: {type: Schema.ObjectId, required: true},
+  name: {type: String, required: true},
   createdAt: {type: Date, default: Date.now},
   members: {type: Array, default: []},
   pendingMembers: {type: Array, default: []},
@@ -23,13 +24,14 @@ exports.getAllInClasses = function (classIds, cb) {
   Team.find({classId: {$in: classIds}}, cb)
 }
 
-exports.create = function (classId, members, cb) {
-  logger.info("CLAS ID", classId)
+exports.create = function (classId, members, cb, name) {
+  logger.info("CLASS ID", classId)
   var team = {
     classId: classId,
     members: members || [],
     requireApproval: true,
-    pendingMembers: []
+    pendingMembers: [],
+    name: name || 'Unamed Team'
   }
   logger.info(team)
   Team.create(team, cb)
