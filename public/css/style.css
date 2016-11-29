@@ -1,0 +1,60 @@
+.disabled {
+	opacity: 0.5;
+	color: gray;
+}
+
+.memberListItem {
+	min-height: 0;
+	height: 1.5em;
+}
+
+.memberList {
+	margin: 0;
+	padding: 0 0 8px;
+
+}
+
+#teamDescr {
+	margin: 0 16px;
+	padding-bottom: 16px;
+}
+
+md-dialog.joinTeamDialog {
+	min-width: 40% !important;
+}
+
+md-card md-card-title+md-card-content {
+	padding-top: 16px !important;
+}
+
+.headlineButNot {
+	vertical-align: bottom;
+	font-size: 14px;
+	font-style: italic;
+}
+
+.repeat-item.ng-enter,
+.repeat-item.ng-leave {
+  -webkit-transition:0.5s linear all;
+  transition:0.5s linear all;
+}
+
+.repeat-item.ng-enter,
+.repeat-item.ng-leave.ng-leave-active {
+  opacity:0;
+  height: 0px;
+}
+.repeat-item.ng-leave,
+.repeat-item.ng-enter.ng-enter-active {
+  opacity:1;
+   height: 30px;
+}
+.repeat-item {
+ 
+  background: green;
+  margin-bottom: 5px;
+  height: 30px;
+}
+.delete {
+  float: right;
+}
