@@ -8,14 +8,16 @@ var StudentSchema = new Schema({
   createdAt: {type: Date, required: true, default: Date.now}, // Date the student was added.
   isStudent: {type: Boolean, required: true, default: true}, // True on all students (false on professors).
   studentId: {type: String}, // Used when exporting a class roster to CSV.
-  classes: {type: [Schema.Types.ObjectId], default: []} // A list of IDs of all classes a student is enrolled in.
+  classes: {type: [{ type: Schema.Types.ObjectId, ref: 'course'}], default: []} // A list of IDs of all classes a student is enrolled in.
 })
 var Student = mongoose.model('student', StudentSchema)
 
+// used for most cases
 exports.getById = function (id, cb) {
-  Student.findOne({_id: id}, cb)
+  Student.findOne({_id: id}).populate({path: 'classes', populate: {path: 'teams', model: 'team'}}).exec(cb)
 }
 
+// used for login
 exports.getByEmail = function (email, cb) {
   email = email.toLowerCase()
   Student.findOne({email: email}, cb)
