@@ -19,11 +19,11 @@
         md-row-height-xs="5:2"
         md-gutter="1px">
       <md-grid-tile layout="row" layout-align="center center" flex="100" layout-padding
-        ng-repeat="class in ctrl.classes"
+        ng-repeat="class in user.classes"
         md-colspan="1"
         md-rowspan="1"
         md-theme="default">
-        <a ng-href="/#!/prof/detail/{{ class._id }}" flex="100" style="height: 100%; text-decoration: none">
+        <a ng-href="/#!/student/detail/{{ class._id }}" flex="100" style="height: 100%; text-decoration: none">
           <md-card flex="100" style="height: inherit" md-theme="default" md-theme-watch>
             <md-card-title  md-colors="::{backgroundColor: 'default-background-300'}" >
               <md-card-title-text >
@@ -35,28 +35,14 @@
               <br>
               <br>
               <span style="padding-bottom:12px">
-                <!-- <b>42 / 142</b> students -->
-                <b>{{ class.teams.length + " group" + (class.teams.length === 1 ? "" : "s") }}</b> 
+                <b>{{ class.isInTeam ? "Currently in team" : "Not in team" }}</b>
+                <b>{{ class.isInTeam ? "" : class.teams.length + " group" + (class.teams.length === 1 ? "" : "s") + "in class"}}</b>
               </span>
               <br>
             </md-card-content>
           </md-card>
         </a>
       </md-grid-tile>
-
-      <md-grid-tile md-colspan="1" md-rowspan="1" layout-padding>
-        <a flex="100" style="height: 100%; text-decoration: none; cursor: pointer">
-          <md-card layout-margin flex="100" style="height: inherit" md-theme="default" layout="column" layout-align="center" md-colors="::{backgroundColor: 'default-background-300'}" md-theme-watch ng-click="ctrl.showAddClass($event)">
-            <md-card-title md-colors="::{backgroundColor: 'default-background-300'}">
-              <md-card-title-text layout="column" layout-align="center center">
-                <span class="md-headline" style="font-size:3rem">+</span>
-                <span class="md-headline">Add Class</span>
-              </md-card-title-text>
-            </md-card-title>
-          </md-card>
-        </a>
-      </md-grid-tile>
-    </md-grid-list>
     <div style="height: 100px"></div>
   </md-content>
 </div>

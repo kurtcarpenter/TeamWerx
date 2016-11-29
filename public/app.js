@@ -14,7 +14,8 @@ var teamwerx = angular.module('teamwerx', [
   'teamwerx.addClassModal',
   'teamwerx.studentDetail',
   'teamwerx.createTeamModal',
-  'teamwerx.joinTeamReqModal'
+  'teamwerx.joinTeamReqModal',
+  'teamwerx.studentHome2'
 ])
 
 teamwerx.config(['$routeProvider', '$locationProvider', '$mdThemingProvider', function ($routeProvider, $locationProvider, $mdThemingProvider) {

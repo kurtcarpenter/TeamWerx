@@ -28,6 +28,7 @@ profHome.controller('profHomeCtrl', function ($http, $mdDialog) {
       controllerAs: 'ctrl',
       targetEvent: $event
     }).then(function (newClass) {
+      console.log(newClass)
       if (newClass) {
         // TODO: Go to the new class.
         ctrl.classes.push(newClass)

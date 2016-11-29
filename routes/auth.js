@@ -33,16 +33,20 @@ module.exports = function (app) {
       var Model = password === 'professor' ? Professor : Student
       Model.getByEmail(username, function (err, account) {
         if (err) {
+          loger.warn("Could not get by email", {err: err})
           return done(err)
         } else if (!account) {
+          logger.info("Registering account")
           Model.register(username, function (err, account) {
             if (err) {
+              logger.warn("Failed to register", {err: err})
               return done(err)
             } else {
               return done(null, account)
             }
           })
         } else {
+          logger.warn("Could not get by email")
           return done(null, account)
         }
       })
@@ -51,10 +55,14 @@ module.exports = function (app) {
 
   app.post('/currentuser', function (req, res) {
     if (req.user) {
-      res.json({
+      var data = {
         email: req.user.email,
         isStudent: req.user.isStudent
-      })
+      }
+      if (req.user.isStudent) {
+        data.classes = req.user.classes
+      }
+      res.json(data)
     } else {
       res.status(401).json({})
     }
