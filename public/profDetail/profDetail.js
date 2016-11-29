@@ -11,7 +11,21 @@ profDetail.config(['$routeProvider', function ($routeProvider) {
 profDetail.controller('profDetailCtrl', function ($scope, $mdDialog, $routeParams, $http) {
   var ctrl = this
 
-  ctrl.unmatched = []
+  ctrl.createTeam = function () {
+    var data = {
+      classId: $routeParams.id,
+      members: []
+    }
+    $http.post('/api/team/', data).then(function success (res) {
+      if (res.status < 300) {
+        getClass()
+      } else {
+        console.warn('Something went wrong!')
+      }
+    }, function error (e) {
+      console.warn(e)
+    })
+  }
 
   ctrl.assignStudent = function (p) {
     $http.post('/api/team/' + p.assignTo + '/' + p._id).then(function success (res) {
@@ -54,19 +68,6 @@ profDetail.controller('profDetailCtrl', function ($scope, $mdDialog, $routeParam
   function getClass () {
     $http.get('/api/class/' + $routeParams.id).then(function success (res) {
       ctrl.class = res.data
-      // ctrl.class.roster = [
-      //   {"name": "Kobe", "email": "kobe@kobe.c", "_id": "aabbaabb"},
-      //   {"name": "MAMBA", "email": "mamba@kobe.c"},
-      //   {"name": "DG", "email": "dg@kobe.c"},
-      //   {"name": "OJ", "email": "oj@kobe.c"}
-      // ]
-      // ctrl.class.teams = [
-      //   {"name": "undefined", "_id": "deadbeef", "members": [
-      //   ]},
-      //   {"name": "undefined2", "_id": "cafebabe",  "members": [
-      //     {"name": "OJ", "email": "oj@kobe.c"}
-      //   ]}
-      // ]
       findUnmatched()
     }, function error (e) {
       console.warn('Something went wrong.')
@@ -81,6 +82,7 @@ profDetail.controller('profDetailCtrl', function ($scope, $mdDialog, $routeParam
   init()
 
   function findUnmatched() {
+    ctrl.unmatched = []
     for (var i = 0; i < ctrl.class.roster.length; i++) {
       var student = ctrl.class.roster[i]
       var matched = false
@@ -97,5 +99,14 @@ profDetail.controller('profDetailCtrl', function ($scope, $mdDialog, $routeParam
         ctrl.unmatched.push(student)
       }
     }
+  }
+
+  ctrl.getEmailLink = function (team) {
+    console.log(team)
+    var ret = 'mailto:'
+    for (var i = 0; i < team.members.length; i++) {
+      ret += team.members[i].email + ';'
+    }
+    return ret
   }
 })

@@ -3,6 +3,7 @@ var router = express.Router()
 
 var Team = require('../models/teams')
 var Student = require('../models/student')
+var Course = require('../models/course')
 var logger = require('winston')
 
 var getById = function (req, res, next) {
@@ -15,6 +16,7 @@ var getById = function (req, res, next) {
   })
 }
 
+// this method probably does not work
 var getAllByClass = function (req, res, next) {
   Team.getAllByClass(req.params.classId, function (err, teams) {
     if (err) {
@@ -26,11 +28,19 @@ var getAllByClass = function (req, res, next) {
 }
 
 var create = function (req, res, next) {
-  Team.create(req.params.classId, req.params.members, function (err, team) {
+  Team.create(req.body.classId, req.body.members, function (err, team) {
     if (err) {
+      logger.warn(err)
       res.status(500).send()
     } else {
-      res.send({team: team})
+      Course.addTeam(req.body.classId, team._id, function (err, resp) {
+        if (err) {
+          logger.warn(err)
+          res.status(500).send()
+        } else {
+          res.status(200).send()
+        }
+      })
     }
   })
 }

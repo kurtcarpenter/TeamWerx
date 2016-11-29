@@ -5,7 +5,7 @@ var logger = require('winston')
 var TeamSchema = new Schema({
   classId: {type: Schema.ObjectId, required: true},
   createdAt: {type: Date, default: Date.now},
-  members: {type: Array, required: true},
+  members: {type: Array, default: []},
   pendingMembers: {type: Array, default: []},
   requireApproval: {type: Boolean, required: true}
 })
