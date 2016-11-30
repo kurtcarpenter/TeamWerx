@@ -1,6 +1,7 @@
 var mongoose = require('mongoose')
 var Schema = mongoose.Schema
 var logger = require('winston')
+var Student = require('./student')
 
 var TeamSchema = new Schema({
   classId: {type: Schema.ObjectId, required: true},
@@ -43,18 +44,32 @@ exports.create = function (classId, members, cb, name) {
  * @param member member id
  * @param cb Callback function cb(err, ret)
  */
-exports.addMember = function (id, member, cb) {
+exports.addMember = function (id, memberId, cb) {
   Team.findOne({_id: id}, function (err, team) {
     if (err) {
       logger.warn('Could not find team', {err: err, id: id})
       cb(err, null)
     } else {
-      if (team.members.indexOf(member) !== -1) {
-        team.members.push(member)
-        team.save(function (err, team) {
-          return cb(err, team)
-        })
-      }
+      Student.getById(memberId, function (err, student) {
+        var member = {
+          name: student.name,
+          email: student.email,
+          _id: student._id
+        }
+        if (err) {
+          logger.warn("Could not find student", {err: err, id: id})
+        } else {
+          if (team.members.length === 0 || team.members.indexOf(student) !== -1) {
+            team.members.push(member)
+            team.save(function (err, team) {
+              cb(err, team)
+            })
+          } else {
+            logger.info("Member already in team")
+            cb("Member already in team")
+          }
+        }
+      })
     }
   })
 }

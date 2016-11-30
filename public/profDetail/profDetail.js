@@ -28,6 +28,7 @@ profDetail.controller('profDetailCtrl', function ($scope, $mdDialog, $routeParam
   }
 
   ctrl.assignStudent = function (p) {
+    console.log("asdsad")
     $http.post('/api/team/' + p.assignTo + '/' + p._id).then(function success (res) {
       if (res.status < 400) {
         console.warn("Successfully assigned student")

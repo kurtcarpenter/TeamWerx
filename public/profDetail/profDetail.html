@@ -29,6 +29,7 @@
           <span ng-repeat="member in team.members">
             {{ member.name.concat((!$last) ? ' &mdash; ': '')}}
           </span>
+          <i ng-if="team.members.length === 0">No team members</i>
         </div>
         <md-button ng-if="team.members.length > 0" class="md-secondary md-raised" ng-href="{{ctrl.getEmailLink(team)}}">Email</md-button>
         <md-divider ng-if="!$last"></md-divider>

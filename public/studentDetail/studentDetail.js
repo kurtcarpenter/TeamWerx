@@ -1,7 +1,7 @@
 var studentDetail = angular.module('teamwerx.studentDetail', ['ngRoute'])
 
 studentDetail.config(['$routeProvider', function ($routeProvider) {
-  $routeProvider.when('/student/detail', {
+  $routeProvider.when('/student/detail/:id', {
     templateUrl: 'studentDetail/studentDetail.html',
     controller: 'studentDetailCtrl',
     controllerAs: 'ctrl'
@@ -33,10 +33,10 @@ studentDetail.controller('studentDetailCtrl', function ($http, $mdDialog) {
     //TODO: get all reqs for current user and class
     ctrl.reqs = [{'student': { 'name': 'John Doe', 'email' : 'john@doe.com'}}, {'student': {'name': 'Jane Doe', 'email': 'jane@doe.com'}}]
   }
-  
+
   ctrl.showCreateTeam = function ($event) {
     $mdDialog.show({
-      clickOutsideToClose: true,  
+      clickOutsideToClose: true,
       templateUrl: 'studentDetail/createTeamModal.html',
       controller: 'createTeamModalCtrl',
       controllerAs: 'ctrl',
@@ -68,7 +68,7 @@ studentDetail.controller('studentDetailCtrl', function ($http, $mdDialog) {
   function init() {
     getTeams()
     getReqs()
-    
+
   }
 
   init()
