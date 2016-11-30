@@ -118,6 +118,7 @@ var assignUnmatched = function (req, res, next) {
     } else {
       Student.findByClass(req.params.id, function (err, roster) {
         ret.roster = roster
+        console.log(ret.roster)
         Matcher.formTeams(ret, 'RANDOM', req.body.preserveTeams, function (err, resp) {
           if (err) {
             res.send(500)

@@ -69,14 +69,14 @@ exports.addMember = function (id, memberId, cb) {
       cb(err, null)
     } else {
       Student.getById(memberId, function (err, student) {
-        var member = {
-          name: student.name,
-          email: student.email,
-          _id: student._id
-        }
-        if (err) {
+        if (err || !student) {
           logger.warn("Could not find student", {err: err, id: id})
         } else {
+          var member = {
+            name: student.name,
+            email: student.email,
+            _id: student._id
+          }
           var isMember = false
           for (var i = 0; i < team.members.length; i++) {
             if (team.members[i].email === member.email) {

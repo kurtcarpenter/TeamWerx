@@ -29,11 +29,16 @@ var getAllByClass = function (req, res, next) {
 }
 
 var create = function (req, res, next) {
-  Team.create(req.params.classId, [{
-    name: req.user.name,
-    email: req.user.email,
-    _id: req.user._id
-  }], function (err, team) {
+  if (req.user.isStudent) {
+    var members = [{
+      name: req.user.name,
+      email: req.user.email,
+      _id: req.user._id
+    }]
+  } else {
+    var members = []
+  }
+  Team.create(req.params.classId, members, function (err, team) {
     if (err) {
       logger.warn(err)
       res.status(500).send()

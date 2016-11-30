@@ -16,7 +16,7 @@ profDetail.controller('profDetailCtrl', function ($scope, $mdDialog, $routeParam
       classId: $routeParams.id,
       members: []
     }
-    $http.post('/api/team/', data).then(function success (res) {
+    $http.post('/api/team/class/' + $routeParams.id, data).then(function success (res) {
       if (res.status < 300) {
         getClass()
       } else {
