@@ -44,3 +44,9 @@ After addressing the two major immediate pieces of work for this project, there 
 * Allow professors to delete classes.
 * Allow students to remove themselves from classes.
 * Allow professors to mark teams as "Manual" to exclude them from the automatic assignment process (useful for teams that need to be over the maximum team size and teams which have requested to not be completely filled because it's an existing group of friends).
+
+## Pivots and Other Major Areas
+
+The following ideas fall under completely separate categories that could basically be their own projects. However, they are easier to build and more useful when coupled with the teams already formed in TeamWerx.
+
+* Peer evaluations. Doing peer evaluations inside of TeamWerx would be nicer than signing up for CATME.
