@@ -18,7 +18,8 @@ exports.getByEmail = function (email, cb) {
 
 exports.register = function (email, cb) {
   var professor = {
-    email: email
+    email: email,
+    isStudent: false
   }
   Professor.create(professor, cb)
 }
