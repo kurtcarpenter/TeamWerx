@@ -2,7 +2,7 @@ var express = require('express')
 var router = express.Router()
 
 var Team = require('../models/teams')
-var Student = require('../models/student')
+// var Student = require('../models/student')
 var Course = require('../models/course')
 var logger = require('winston')
 
@@ -18,6 +18,7 @@ var getById = function (req, res, next) {
 
 // this method probably does not work
 var getAllByClass = function (req, res, next) {
+  console.log(req.params)
   Team.getAllByClass(req.params.classId, function (err, teams) {
     if (err) {
       res.status(500).send()
@@ -28,12 +29,16 @@ var getAllByClass = function (req, res, next) {
 }
 
 var create = function (req, res, next) {
-  Team.create(req.body.classId, req.body.members, function (err, team) {
+  Team.create(req.params.classId, [{
+    name: req.user.name,
+    email: req.user.email,
+    _id: req.user._id
+  }], function (err, team) {
     if (err) {
       logger.warn(err)
       res.status(500).send()
     } else {
-      Course.addTeam(req.body.classId, team._id, function (err, resp) {
+      Course.addTeam(req.params.classId, team._id, function (err, resp) {
         if (err) {
           logger.warn(err)
           res.status(500).send()
@@ -42,7 +47,7 @@ var create = function (req, res, next) {
         }
       })
     }
-  })
+  }, req.body.name)
 }
 
 var addMember = function (req, res, next) {
@@ -75,7 +80,7 @@ var judgePendingMember = function (req, res, next) {
   })
 }
 
-router.route('/')
+router.route('/class/:classId')
   .get(getAllByClass)
   .post(create)
 router.route('/:id')

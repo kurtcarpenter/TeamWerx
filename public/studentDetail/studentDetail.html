@@ -1,9 +1,8 @@
 <md-toolbar class="md-hue-2">
   <div class="md-toolbar-tools">
-    <a href="/#!/"><h2>TeamWerx</h2></a>
+    <a href="/#!/student/home"><h2>TeamWerx</h2></a>
     <span flex></span>
-    <!-- TODO: pull class name -->
-    <h2>CS 2340J</h2>
+    <h2>{{ ctrl.class.name }}</h2>
     <span flex></span>
     <h3>{{ user.email }}</h3>
   </div>
@@ -36,7 +35,7 @@
         md-colspan="1"
         md-rowspan="1"
         md-theme="default">
-        
+
         <md-card layout="row" flex="100" md-theme="default" md-theme-watch>
           <md-card-title >
             <md-card-title-text >
