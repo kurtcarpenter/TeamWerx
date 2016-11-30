@@ -59,7 +59,14 @@ exports.addMember = function (id, memberId, cb) {
         if (err) {
           logger.warn("Could not find student", {err: err, id: id})
         } else {
-          if (team.members.length === 0 || team.members.indexOf(student) !== -1) {
+          var isMember = false
+          for (var i = 0; i < team.members.length; i++) {
+            if (team.members[i].email === member.email) {
+              isMember = true
+              break
+            }
+          }
+          if (!isMember) {
             team.members.push(member)
             team.save(function (err, team) {
               cb(err, team)
