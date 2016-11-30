@@ -27,7 +27,8 @@ exports.getByEmail = function (email, cb) {
 exports.register = function (email, cb) {
   email = email.toLowerCase()
   var student = {
-    email: email
+    email: email,
+    isStudent: true
   }
   Student.create(student, cb)
 }
@@ -79,7 +80,8 @@ exports.addStudentOrAddClass = function (name, userId, email, classId, cb) {
       $set: {
         email: email,
         studentId: userId,
-        name: name
+        name: name,
+        isStudent: true
       },
       $addToSet: {
         classes: classId
