@@ -32,18 +32,19 @@ exports.create = function (classId, members, cb, name) {
     members: members || [],
     requireApproval: true,
     pendingMembers: [],
-    name: name || 'Unamed Team'
+    name: name || 'Unnamed Team'
   }
   logger.info(team)
   Team.create(team, cb)
 }
 
 exports.findTeamOfMember = function (classId, memberId, cb) {
-  Team.find({classId: classId}).lean().exec(function (err, teams) {
+  Team.find({"classId": classId}).lean().exec(function (err, teams) {
     if (err) {
       logger.warn("Unable to find teams")
       cb(err, null)
     } else {
+      teams = JSON.parse(JSON.stringify(teams))
       for (var i = 0; i < teams.length; i++) {
         for (var j = 0; j < teams[i].members.length; j++) {
           if (teams[i].members[j]._id === memberId) {
@@ -52,6 +53,7 @@ exports.findTeamOfMember = function (classId, memberId, cb) {
           }
         }
       }
+      cb(null, null)
     }
   })
 }
@@ -69,14 +71,14 @@ exports.addMember = function (id, memberId, cb) {
       cb(err, null)
     } else {
       Student.getById(memberId, function (err, student) {
-        var member = {
-          name: student.name,
-          email: student.email,
-          _id: student._id
-        }
-        if (err) {
+        if (err || !student) {
           logger.warn("Could not find student", {err: err, id: id})
         } else {
+          var member = {
+            name: student.name,
+            email: student.email,
+            _id: student._id
+          }
           var isMember = false
           for (var i = 0; i < team.members.length; i++) {
             if (team.members[i].email === member.email) {
@@ -111,9 +113,10 @@ exports.addPendingMember = function (id, member, cb) {
       logger.warn('Could not find team', {err: err, id: id})
       cb(err, null)
     } else {
-      if (team.members.indexOf(member) !== -1 && team.pendingMembers.indexOf(member) !== -1) {
+      if (team.members.indexOf(member) === -1 && team.pendingMembers.indexOf(member) === -1) {
         team.pendingMembers.push(member)
         team.save(function (err, team) {
+          console.log(err)
           return cb(err, team)
         })
       } else {
@@ -131,19 +134,47 @@ exports.addPendingMember = function (id, member, cb) {
  * @param cb Callback function cb(err, ret)
  */
 exports.judgePendingMember = function (id, member, accept, cb) {
+  logger.info("SANITY", id)
   Team.findOne({_id: id}, function (err, team) {
     if (err) {
       logger.warn('Could not find team', {err: err, id: id})
       cb(err, null)
-    } else if (team.pendingMembers.indexOf(member) < 0) {
-      cb('Student does not have a pending application', null)
     } else {
-      team.pendingMembers.splice(team.pendingMembers.indexOf(member), 1)
-      if (accept) {
-        team.members.push(member)
-        cb(null, 'Team member added')
+      var index = -1
+      for (var i = 0; i < team.pendingMembers.length; i++) {
+        logger.info(team.pendingMembers[i]._id, member)
+        if (team.pendingMembers[i]._id == member) {
+          logger.info("yas")
+          index = i
+          break
+        }
+      }
+      if (index === -1) {
+        logger.info("no application")
+        cb('Student does not have a pending application', null)
       } else {
-        cb(null, 'Pending member rejected')
+        logger.info("here")
+        Student.getById(member, function (err, student) {
+          if (err) {
+            cb("Could not find member", {err: err, id: member})
+          } else {
+            var result = {
+              name: student.name,
+              email: student.email,
+              _id: student._id
+            }
+            logger.info("result", result)
+            logger.info({accept: accept})
+            team.pendingMembers.splice(index, 1)
+            if (accept == true || accept == "true") {
+              team.members.push(result)
+              cb(null, 'Team member added')
+            } else {
+              cb(null, 'Pending member rejected')
+            }
+            team.save()
+          }
+        })
       }
     }
   })

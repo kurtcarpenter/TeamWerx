@@ -11,7 +11,7 @@ profHome.config(['$routeProvider', function ($routeProvider) {
 profHome.controller('profHomeCtrl', function ($http, $mdDialog) {
   var ctrl = this
   function getClasses () {
-    $http.get('/api/class').then(function success (res) {
+    $http.get('/api/class/').then(function success (res) {
       ctrl.classes = res.data.classes
     }, function error (e) {
       console.warn('Something went wrong.')

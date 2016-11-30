@@ -65,7 +65,7 @@ exports.getAll = function (_id, cb) {
           var course = courses[i]
           var studentsInTeams = 0
           for (var j = 0; j < teams.length; j++) {
-            if (teams[i].classId === course._id) {
+            if (teams[i] && teams[i].classId === course._id) {
               studentsInTeams += teams[i].members.length
             }
           }

@@ -8,7 +8,7 @@ profDetail.config(['$routeProvider', function ($routeProvider) {
   })
 }])
 
-profDetail.controller('profDetailCtrl', function ($scope, $mdDialog, $routeParams, $http) {
+profDetail.controller('profDetailCtrl', function ($scope, $mdDialog, $routeParams, $http, $window) {
   var ctrl = this
 
   ctrl.createTeam = function () {
@@ -16,7 +16,7 @@ profDetail.controller('profDetailCtrl', function ($scope, $mdDialog, $routeParam
       classId: $routeParams.id,
       members: []
     }
-    $http.post('/api/team/', data).then(function success (res) {
+    $http.post('/api/team/class/' + $routeParams.id, data).then(function success (res) {
       if (res.status < 300) {
         getClass()
       } else {
@@ -27,14 +27,17 @@ profDetail.controller('profDetailCtrl', function ($scope, $mdDialog, $routeParam
     })
   }
 
+  ctrl.exportRoster = function () {
+    $window.location = '/api/class/' + $routeParams.id + '/export'
+  }
+
   ctrl.assignStudent = function (p) {
-    console.log("asdsad")
     $http.post('/api/team/' + p.assignTo + '/' + p._id).then(function success (res) {
       if (res.status < 400) {
-        console.warn("Successfully assigned student")
+        console.warn('Successfully assigned student')
         getClass()
       } else {
-        console.warn("Something went wrong!")
+        console.warn('Something went wrong!')
       }
     }, function error (e) {
       console.warn('Something went wrong.')

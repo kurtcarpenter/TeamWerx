@@ -56,9 +56,11 @@ module.exports = function (app) {
   app.post('/currentuser', function (req, res) {
     if (req.user) {
       var data = {
+        _id: req.user._id,
         email: req.user.email,
         isStudent: req.user.isStudent,
-        profile: req.user.profile || {}
+        profile: req.user.profile || {},
+        _id: req.user._id
       }
       if (req.user.isStudent) {
         data.classes = req.user.classes

@@ -42,6 +42,7 @@
       <h4>Unmatched Students</h4>
       <span flex></span>
       <md-button class="md-raised" ng-if="ctrl.unmatched && ctrl.unmatched.length > 0" ng-click="ctrl.assignUnmatched()">Match All Students</md-button>
+      <md-button class="md-raised" ng-if="ctrl.unmatched && ctrl.unmatched.length === 0" ng-click="ctrl.exportRoster()">Export Teams</md-button>
     </div>
   </md-toolbar>
 

@@ -33,15 +33,18 @@ studentHome.controller('studentHomeCtrl', function ($http, $mdDialog, $scope) {
   function applyGrouped () {
     var classes = $scope.user.classes
     for (var i = 0; i < classes.length; i++) {
-      classes[i].isInTeam = false
+      var present = false
       for (var j = 0; j < classes[i].teams.length; j++) {
         var members = classes[i].teams[j].members
         for (var k = 0; k < members.length; k++) {
           if (members[k].email === $scope.user.email) {
-            classes[i].isInTeam = true
+            present = true
+            break
           }
         }
       }
+      classes[i].isInTeam = present
+      $scope.$apply()
     }
   }
 

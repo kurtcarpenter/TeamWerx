@@ -1,10 +1,12 @@
 var express = require('express')
 var router = express.Router()
 var csv = require('csv')
+var json2csv = require('json2csv')
 
 var Course = require('../models/course')
 var Student = require('../models/student')
 var Matcher = require('../lib/matcher/matcher')
+var Team = require('../models/teams')
 var logger = require('winston')
 
 var getAll = function (req, res, next) {
@@ -116,6 +118,7 @@ var assignUnmatched = function (req, res, next) {
     } else {
       Student.findByClass(req.params.id, function (err, roster) {
         ret.roster = roster
+        console.log(ret.roster)
         Matcher.formTeams(ret, 'RANDOM', req.body.preserveTeams, function (err, resp) {
           if (err) {
             res.send(500)
@@ -128,6 +131,44 @@ var assignUnmatched = function (req, res, next) {
   })
 }
 
+function exportRoster (req, res) {
+  Team.getAllByClass(req.params.id, function (err, teams) {
+    if (err) {
+      logger.warn(err)
+      return res.send(500)
+    }
+
+    var roster = []
+    for (var i = 0; i < teams.length; i++) {
+      var team = teams[i]
+      for (var j = 0; j < team.members.length; j++) {
+        var member = team.members[j]
+        roster.push({
+          'Name': member.name,
+          'Email Address': member.email,
+          'Team Name': team.name,
+          'Team Number': i + 1 // Index by 1 for people
+        })
+      }
+    }
+
+    try {
+      var csvRoster = json2csv({data: roster})
+      res.setHeader('Content-disposition', 'attachment; filename=teams.csv')
+      res.setHeader('Content-type', 'text/csv')
+
+      var fileContents = new Buffer(csvRoster, 'utf-8')
+
+      return res.send(200, fileContents)
+    } catch (err) {
+      // Errors are thrown for bad options, or if the data is empty and no fields are provided.
+      // Be sure to provide fields if it is possible that your data array will be empty.
+      console.error(err)
+      return res.send(500, err)
+    }
+  })
+}
+
 router.route('/')
   .get(getAll)
   .post(addClass)
@@ -135,5 +176,6 @@ router.route('/:id')
   .get(getClass)
 router.route('/:id/match')
   .post(assignUnmatched)
-
+router.route('/:id/export')
+  .get(exportRoster)
 module.exports = router
