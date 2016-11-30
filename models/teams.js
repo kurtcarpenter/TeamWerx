@@ -38,6 +38,24 @@ exports.create = function (classId, members, cb, name) {
   Team.create(team, cb)
 }
 
+exports.findTeamOfMember = function (classId, memberId, cb) {
+  Team.find({classId: classId}).lean().exec(function (err, teams) {
+    if (err) {
+      logger.warn("Unable to find teams")
+      cb(err, null)
+    } else {
+      for (var i = 0; i < teams.length; i++) {
+        for (var j = 0; j < teams[i].members.length; j++) {
+          if (teams[i].members[j]._id === memberId) {
+            cb(null, teams[i])
+            return
+          }
+        }
+      }
+    }
+  })
+}
+
 /**
  * Add student to a team.
  * @param id Team id

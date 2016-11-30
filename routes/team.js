@@ -75,9 +75,21 @@ var judgePendingMember = function (req, res, next) {
   })
 }
 
+var findTeamOfMember = function (req, res, next) {
+    Team.findTeamOfMember(req.params.class, req.params.member, function (err, team) {
+      if (err) {
+        res.status(500).send()
+      } else {
+        res.send({team: team})
+      }
+    })
+}
+
 router.route('/')
   .get(getAllByClass)
   .post(create)
+router.route('/member/:class/:member')
+  .get(findTeamOfMember)
 router.route('/:id')
   .get(getById)
 router.route('/:id/:member')
