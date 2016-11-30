@@ -10,26 +10,40 @@
 
 <div class='md-padding' layout="row" layout-wrap>
   <md-content flex layout-padding>
+    <div ng-if="ctrl.team">
+      <md-card class=" md-padding" ng-animate="animate" layout="row" md-theme="default" style="height: 4rem; width: 70%; margin: 10 auto" layout-align="center center">
+        <md-card-title>
+          <md-card-title-text layout="row">
+            <h3 class="md-headline md-padding">Team: {{ctrl.team.name}}</h3>
+          </md-card-title-text>
+        </md-card-title>
+        <md-button class="md-primary md-raised" ng-href="{{ctrl.getEmailLink(ctrl.team)}}">Email Members</md-button>
+      </md-card>
+      <br>
+      <md-card class="repeat-item md-padding" ng-animate="animate" layout="row" ng-repeat="req in ctrl.team.members" md-theme="default" style="height: 4rem; width: 70%; margin: 10 auto" layout-align="center center">
+        <md-card-title>
+          <md-card-title-text layout="row">
+            <span class="md-title md-padding" flex>{{req.name}}</span>
+            <span class="md-title md-padding headlineButNot">{{req.email}}</span>
+          </md-card-title-text>
+        </md-card-title>
+      </md-card>
+      <br>
+      <md-card ng-if="ctrl.team" class="repeat-item md-padding" ng-animate="animate" layout="row" ng-repeat="req in ctrl.team.pendingMembers" md-theme="default" style="height: 4rem; width: 70%; margin: 10 auto" layout-align="center center">
+        <md-card-title>
+          <md-card-title-text layout="row">
+            <span class="md-title md-padding">{{req.name}}</span>
+            <span class="md-title md-padding headlineButNot">{{req.email}}</span>
+          </md-card-title-text>
+        </md-card-title>
+        <md-card-content layout="row">
+          <md-button ng-click="ctrl.acceptMember(req)" style="vertical-align: middle" layout-align="center center" class="md-raised md-primary">Accept</md-button>
+          <md-button ng-click="ctrl.rejectMember(req)" layout-align="center center" class="md-raised">Reject</md-button>
+        </md-card-content>
+      </md-card>
+    </div>
 
-  <!-- <div layout="column"> -->
-    <md-card class="repeat-item md-padding" ng-animate="animate" layout="row" ng-repeat="req in ctrl.reqs" md-theme="default" style="height: 4rem; width: 70%; margin: 10 auto" layout-align="center center">
-      <md-card-title>
-        <md-card-title-text layout="row">
-          <span class="md-headline md-padding">{{req.student.name}}</span>
-          <span class="md-headline md-padding headlineButNot">{{req.student.email}}</span>
-        </md-card-title-text>
-      </md-card-title>
-      <md-card-content layout="row">
-        <md-button ng-click="ctrl.removeReq($index)" style="vertical-align: middle" layout-align="center center" class="md-raised md-primary">Accept</md-button>
-        <md-button ng-click="ctrl.removeReq($index)" layout-align="center center" class="md-raised">Reject</md-button>
-      </md-card-content>
-    </md-card>
-  <!-- </div> -->
-
-
-
-
-    <md-grid-list md-cols="3" md-row-height="2:1" md-gutter="1px">
+    <md-grid-list ng-if="!ctrl.team" md-cols="3" md-row-height="2:1" md-gutter="1px">
       <md-grid-tile layout="row" layout-align="center center" flex="100"
         ng-repeat="team in ctrl.teams"
         md-colspan="1"

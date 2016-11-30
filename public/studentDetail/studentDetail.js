@@ -8,12 +8,31 @@ studentDetail.config(['$routeProvider', function ($routeProvider) {
   })
 }])
 
-studentDetail.controller('studentDetailCtrl', function ($http, $mdDialog, $routeParams) {
+studentDetail.controller('studentDetailCtrl', function ($http, $scope, $mdDialog, $routeParams) {
   var ctrl = this
   ctrl.classId = $routeParams.id
 
-  ctrl.removeReq = function (ind) {
-    ctrl.reqs.splice(ind, 1)
+  var timey = setInterval(function () {
+      if ($scope.user) {
+        clearTimeout(timey)
+        init()
+      }
+  }, 50)
+
+  function init () {
+    getClass()
+    getMyTeam()
+    getTeams()
+  }
+
+  function getMyTeam() {
+    $http.get('/api/team/member/' + $scope.user._id + '/' + $routeParams.id).then(function success (res) {
+      ctrl.team = res.data.team
+    }, function error (e) {
+      console.warn('Something went wrong.')
+      ctrl.team = null
+      console.warn(e)
+    })
   }
 
   function getClass () {
@@ -35,11 +54,6 @@ studentDetail.controller('studentDetailCtrl', function ($http, $mdDialog, $route
       ctrl.teams = []
       console.warn(e)
     })
-  }
-
-  function getReqs () {
-    //TODO: get all reqs for current user and class
-    ctrl.reqs = [{'student': { 'name': 'John Doe', 'email' : 'john@doe.com'}}, {'student': {'name': 'Jane Doe', 'email': 'jane@doe.com'}}]
   }
 
   ctrl.showCreateTeam = function ($event) {
@@ -72,11 +86,30 @@ studentDetail.controller('studentDetailCtrl', function ($http, $mdDialog, $route
     })
   }
 
-  function init () {
-    getClass()
-    getTeams()
-    getReqs()
+  ctrl.getEmailLink = function (team) {
+    console.log(team)
+    var ret = 'mailto:'
+    for (var i = 0; i < team.members.length; i++) {
+      ret += team.members[i].email + ';'
+    }
+    return ret
   }
 
-  init()
+  ctrl.acceptMember = function (mem) {
+    ctrl.judgeMember(mem, true)
+  }
+
+  ctrl.rejectMember = function (mem) {
+    ctrl.judgeMember(mem, false)
+  }
+
+  ctrl.judgeMember = function (mem, accept) {
+    $http.get('/api/team/' + ctrl.team._id + '/' + mem._id, {params: {accept: accept}}).then(function success (res) {
+      console.log("success")
+      getTeams()
+    }, function error (e) {
+      console.warn('Something went wrong.')
+      console.warn(e)
+    })
+  }
 })

@@ -80,7 +80,7 @@ var addPendingMember = function (req, res, next) {
 }
 
 var judgePendingMember = function (req, res, next) {
-  Team.judgePendingMember(req.params.id, req.params.member, req.params.accept, function (err, msg) {
+  Team.judgePendingMember(req.params.id, req.params.member, req.query.accept, function (err, msg) {
     if (err) {
       res.status(500).send()
     } else {
@@ -102,7 +102,7 @@ var findTeamOfMember = function (req, res, next) {
 router.route('/class/:classId')
   .get(getAllByClass)
   .post(create)
-router.route('/member/:class/:member')
+router.route('/member/:member/:class')
   .get(findTeamOfMember)
 router.route('/:id')
   .get(getById)
