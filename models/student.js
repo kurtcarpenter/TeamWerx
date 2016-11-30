@@ -15,7 +15,7 @@ var Student = mongoose.model('student', StudentSchema)
 
 // used for most cases
 exports.getById = function (id, cb) {
-  Student.findOne({_id: id}).populate({path: 'classes', populate: {path: 'teams', model: 'team'}}).exec(cb)
+  Student.findOne({_id: id}).populate({path: 'classes', populate: {path: 'teams', model: 'team'}}).lean().exec(cb)
 }
 
 // used for login
