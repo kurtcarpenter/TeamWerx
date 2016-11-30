@@ -61,7 +61,11 @@ var addMember = function (req, res, next) {
 }
 
 var addPendingMember = function (req, res, next) {
-  Team.addPendingMember(req.params.id, req.params.member, function (err, team) {
+  Team.addPendingMember(req.params.id, {
+    name: req.user.name,
+    email: req.user.email,
+    _id: req.user._id
+  }, function (err, team) {
     if (err) {
       res.status(500).send()
     } else {
@@ -99,7 +103,8 @@ router.route('/:id')
   .get(getById)
 router.route('/:id/:member')
   .get(judgePendingMember)
-  .put(addPendingMember)
   .post(addMember)
+router.route('/req/:id')
+  .put(addPendingMember)
 
 module.exports = router

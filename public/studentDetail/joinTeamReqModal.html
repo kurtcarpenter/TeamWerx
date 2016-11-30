@@ -17,12 +17,12 @@
           <md-list class="memberList">
             <md-list-item class="memberListItem" ng-repeat="student in ctrl.currTeam.members">
               <div class="md-list-item-text">
-                <span>- {{ student }}</span>
+                <span>- {{ student.name }}</span>
               </div>
             </md-list-item>
           </md-list>
-          <md-subheader>Description</md-subheader>
-          <span id="teamDescr">{{ ctrl.currTeam.description }}</span>
+          <!-- <md-subheader>Description</md-subheader>
+          <span id="teamDescr">{{ ctrl.currTeam.description }}</span> -->
           <md-input-container class="md-block">
             <label>Add Your Own Message</label>
             <textarea ng-model="message" rows="2"></textarea>

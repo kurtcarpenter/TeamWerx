@@ -111,9 +111,10 @@ exports.addPendingMember = function (id, member, cb) {
       logger.warn('Could not find team', {err: err, id: id})
       cb(err, null)
     } else {
-      if (team.members.indexOf(member) !== -1 && team.pendingMembers.indexOf(member) !== -1) {
+      if (team.members.indexOf(member) === -1 && team.pendingMembers.indexOf(member) === -1) {
         team.pendingMembers.push(member)
         team.save(function (err, team) {
+          console.log(err)
           return cb(err, team)
         })
       } else {

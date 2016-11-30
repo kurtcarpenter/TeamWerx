@@ -40,13 +40,13 @@
           <md-card-title >
             <md-card-title-text >
               <span class="md-headline">{{ team.name }}</span>
-              <span class="md-subhead">{{team.members.length}} / {{ team.capacity }} members</span>
+              <span class="md-subhead">{{team.members.length}} / {{ ctrl.class.maxGroup }} members</span>
             </md-card-title-text>
           </md-card-title>
           <md-card-content layout-align="center center" layout="column" md-colors="::{backgroundColor: 'default-background-300'}" ng-click="ctrl.showJoinTeam($event, team)">
             <div ng-class="{ disabled: team.members.length >= team.capacity}" layout="column" layout-align="center">
 <!--               <span>{{ team.members.length < team.capacity ? "&gt&gt" : ""}}</span>-->
-              <span>{{ team.members.length < team.capacity ? "Join" : "Full"}}</span>
+              <span>{{ team.members.length < ctrl.class.maxGroup ? "Join" : "Full"}}</span>
             </div>
           </md-card-content>
         </md-card>
