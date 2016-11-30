@@ -29,9 +29,9 @@
         </md-card-title>
       </md-card>
       <br>
-      <md-card ng-if="ctrl.team" ng-click="ctrl.showProfile(req.email, $event)" class="repeat-item md-padding" ng-animate="animate" layout="row" ng-repeat="req in ctrl.team.pendingMembers" md-theme="default" style="height: 4rem; width: 70%; margin: 10 auto" layout-align="center center">
+      <md-card ng-if="ctrl.team" class="repeat-item md-padding" ng-animate="animate" layout="row" ng-repeat="req in ctrl.team.pendingMembers" md-theme="default" style="height: 4rem; width: 70%; margin: 10 auto" layout-align="center center">
         <md-card-title>
-          <md-card-title-text layout="row">
+          <md-card-title-text layout="row" ng-click="ctrl.showProfile(req.email, $event)">
             <span class="md-title md-padding">{{req.name}}</span>
             <span class="md-title md-padding headlineButNot">{{req.email}}</span>
           </md-card-title-text>
