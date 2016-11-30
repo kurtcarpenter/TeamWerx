@@ -13,12 +13,24 @@
   <md-content flex layout-padding>
     <div>
       <div layout ="row">
-        <md-input-container flex="30">
-          <label>Preferred Name</label>
-          <input ng-model="p.name" type="name">
-        </md-input-container>
-        <div layout="column" layout-padding flex>
-          <!-- <h3>Please List Three Availabilities</h3> -->
+        <div layout="column" flex>
+          <md-input-container>
+            <label>Preferred Name</label>
+            <input ng-model="p.name" type="name">
+          </md-input-container>
+          <md-input-container>
+              <label>Describe Yourself</label>
+              <textarea ng-model="p.detail" md-maxlength="200" rows="5" md-select-on-focus></textarea>
+          </md-input-container>
+          <md-input-container>
+              <label>Skills</label>
+              <textarea ng-model="p.skills" md-maxlength="100" rows="5" md-select-on-focus></textarea>
+          </md-input-container>
+        </div>
+
+        <div layout="column" flex>
+          <h3 style="text-align: center;">Please List Three Availabilities</h3>
+          <br>
           <div layout="row" class="range layout-column flex-gt-md-30" flex>
             <md-input-container class="md-input-has-placeholder" flex>
               <label>Start Date/Time</label>
@@ -60,17 +72,6 @@
               placeholder="Date" min-date="p.dateTimeStart3" ng-model="p.dateTimeEnd3">
             </md-input-container>
           </div>
-        </div>
-
-        <div layout="column">
-          <md-input-container flex layout-padding>
-              <label>Describe Yourself</label>
-              <textarea ng-model="p.detail" md-maxlength="200" rows="5" md-select-on-focus></textarea>
-          </md-input-container>
-          <md-input-container flex layout-padding>
-              <label>Skills</label>
-              <textarea ng-model="p.skills" md-maxlength="100" rows="5" md-select-on-focus></textarea>
-          </md-input-container>
         </div>
       </div>
 

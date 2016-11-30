@@ -25,6 +25,19 @@ studentDetail.controller('studentDetailCtrl', function ($http, $scope, $mdDialog
     getTeams()
   }
 
+  ctrl.showProfile = function (email, $event) {
+    $mdDialog.show({
+      locals: { email: email },
+      clickOutsideToClose: true,
+      templateUrl: 'studentHome/viewProfileModal.html',
+      controller: 'viewProfileModalCtrl',
+      controllerAs: 'ctrl',
+      targetEvent: $event
+    }).then(function (result) {
+      console.log('Opened profile')
+    })
+  }
+
   function getMyTeam() {
     $http.get('/api/team/member/' + $scope.user._id + '/' + $routeParams.id).then(function success (res) {
       ctrl.team = res.data.team
@@ -38,7 +51,6 @@ studentDetail.controller('studentDetailCtrl', function ($http, $scope, $mdDialog
   function getClass () {
     $http.get('/api/class/' + ctrl.classId).then(function success (res) {
       ctrl.class = res.data
-      console.log(res.data)
     }, function error (e) {
       console.warn('Something went wrong.')
       console.warn(e)
@@ -48,7 +60,6 @@ studentDetail.controller('studentDetailCtrl', function ($http, $scope, $mdDialog
   function getTeams () {
     $http.get('/api/team/class/' + ctrl.classId).then(function success (res) {
       ctrl.teams = res.data.teams
-      console.log(res.data)
     }, function error (e) {
       console.warn('Something went wrong.')
       ctrl.teams = []
@@ -87,7 +98,6 @@ studentDetail.controller('studentDetailCtrl', function ($http, $scope, $mdDialog
   }
 
   ctrl.getEmailLink = function (team) {
-    console.log(team)
     var ret = 'mailto:'
     for (var i = 0; i < team.members.length; i++) {
       ret += team.members[i].email + ';'

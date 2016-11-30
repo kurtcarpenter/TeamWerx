@@ -19,7 +19,22 @@ var updateProfile = function (req, res, next) {
   })
 }
 
+var getProfile = function (req, res, next) {
+  Student.getByEmail(req.query.email, function (err, student) {
+    if (err) {
+      logger.warn('error occurred while getting profile', {err: err})
+      res.status(500).send()
+    } else {
+      res.json({
+        profile: student.profile || {}
+      })
+    }
+  })
+}
+
 router.route('/')
   .get(updateProfile)
+router.route('/profile')
+  .get(getProfile)
 
 module.exports = router

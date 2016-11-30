@@ -1,0 +1,36 @@
+<md-dialog aria-label="View Profile">
+  <form>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Student Profile</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="ctrl.closeDialog()">
+          <md-icon>close</md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content style="max-width:800px;max-height:810px;">
+      <div layout-padding>
+        <p>Preferred Name : {{ctrl.profile.name}}</p>
+        <div layout="row">
+          <p>
+            Availibility 1: {{ctrl.profile.dateTimeStart1 | date:'short'}} - {{ctrl.profile.dateTimeEnd1 | date: 'short'}}
+          </p>
+        </div>
+        <div layout="row">
+          <p>
+            Availibility 2: {{ctrl.profile.dateTimeStart2 | date:'short'}} - {{ctrl.profile.dateTimeEnd2 | date: 'short'}}
+          </p>
+        </div>
+        <div layout="row">
+          <p>
+            Availibility 1: {{ctrl.profile.dateTimeStart3 | date:'short'}} - {{ctrl.profile.dateTimeEnd3 | date: 'short'}}
+          </p>
+        </div>
+        <p>Details : {{ctrl.profile.detail}}</p>
+        <p>Skills : {{ctrl.profile.skills}}</p>
+      </div>
+
+    </md-dialog-content>
+  </form>
+</md-dialog>
