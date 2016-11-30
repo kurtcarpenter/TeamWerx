@@ -11,18 +11,6 @@ studentHome.config(['$routeProvider', function ($routeProvider) {
 studentHome.controller('studentHomeCtrl', function ($http, $mdDialog, $scope) {
   var ctrl = this
 
-  ctrl.showProfile = function ($event) {
-    $mdDialog.show({
-      clickOutsideToClose: true,
-      templateUrl: 'studentHome/viewProfileModal.html',
-      controller: 'viewProfileModalCtrl',
-      controllerAs: 'ctrl',
-      targetEvent: $event
-    }).then(function (result) {
-      console.log('Opened profile')
-    })
-  }
-
   var isGrouped = setInterval(function () {
     if ($scope.user && $scope.user.classes) {
       clearTimeout(isGrouped)

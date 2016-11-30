@@ -1,8 +1,8 @@
-<md-dialog aria-label="Add Class">
+<md-dialog aria-label="View Profile">
   <form>
     <md-toolbar>
       <div class="md-toolbar-tools">
-        <h2>Add Class</h2>
+        <h2>Student Profile</h2>
         <span flex></span>
         <md-button class="md-icon-button" ng-click="ctrl.closeDialog()">
           <md-icon>close</md-icon>
@@ -10,51 +10,27 @@
       </div>
     </md-toolbar>
     <md-dialog-content style="max-width:800px;max-height:810px;">
-      <md-content>
-        <div layout="row" layout-margin layout-padding>
-          <md-input-container flex>
-            <input ng-model="ctrl.class.name" placeholder="Course">
-          </md-input-container>
-
-          <md-input-container flex>
-            <label>Semester</label>
-            <md-select name="type" ng-model="ctrl.class.semester">
-              <md-option value="FALL">Fall</md-option>
-              <md-option value="SPRING">Spring</md-option>
-              <md-option value="SUMMER">Summer</md-option>
-            </md-select>
-          </md-input-container>
-
-          <md-input-container flex>
-            <label>Year</label>
-            <input ng-model="ctrl.class.year" type="number">
-          </md-input-container>
+      <div layout-padding>
+        <p>Preferred Name : {{ctrl.profile.name}}</p>
+        <div layout="row">
+          <p>
+            Availibility 1: {{ctrl.profile.dateTimeStart1 | date:'short'}} - {{ctrl.profile.dateTimeEnd1 | date: 'short'}}
+          </p>
         </div>
+        <div layout="row">
+          <p>
+            Availibility 2: {{ctrl.profile.dateTimeStart2 | date:'short'}} - {{ctrl.profile.dateTimeEnd2 | date: 'short'}}
+          </p>
+        </div>
+        <div layout="row">
+          <p>
+            Availibility 1: {{ctrl.profile.dateTimeStart3 | date:'short'}} - {{ctrl.profile.dateTimeEnd3 | date: 'short'}}
+          </p>
+        </div>
+        <p>Details : {{ctrl.profile.detail}}</p>
+        <p>Skills : {{ctrl.profile.skills}}</p>
+      </div>
 
-        <div layout="row" layout-margin layout-padding>
-          <md-input-container flex>
-            <label>Min Group Size</label>
-            <input ng-model="ctrl.class.minGroup" type="number" min="1">
-          </md-input-container>
-          <md-input-container flex>
-            <label>Max Group Size</label>
-            <input ng-model="ctrl.class.maxGroup" type="number" min="1">
-          </md-input-container flex>
-        </div>
-        <div layout="row" layout-margin layout-padding>
-          <md-input-container class="md-icon-float md-block">
-            <label>Upload Student Roster</label>
-            <input type="file" id="roster" name="roster" accept=".csv" placeholder="">
-          </md-input-container>
-        </div>
-      </md-content>
     </md-dialog-content>
-
-    <md-dialog-actions layout="row">
-      <span flex></span>
-      <md-button ng-click="ctrl.addClass(class, group)" style="margin-right:20px;" >
-        Add Class
-      </md-button>
-    </md-dialog-actions>
   </form>
 </md-dialog>
